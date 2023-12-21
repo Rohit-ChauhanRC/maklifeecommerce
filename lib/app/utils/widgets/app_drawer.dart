@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:maklifeecommerce/app/modules/home/controllers/home_controller.dart';
 import 'package:maklifeecommerce/app/routes/app_pages.dart';
 import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
 import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({super.key});
+  AppDrawer({super.key});
+
+  final HomeController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +22,19 @@ class AppDrawer extends StatelessWidget {
         children: [
           Column(
             children: [
-              const CircleAvatar(
-                radius: 70,
-                child: FlutterLogo(),
-              ),
+              Obx(() => CircleAvatar(
+                    radius: 70,
+                    backgroundColor: AppColors.greenColor,
+                    // color: Colors.white,
+                    backgroundImage: controller.personPic != null &&
+                            controller.personPic.path != null &&
+                            controller.personPic.path != ""
+                        ? Image.file(
+                            File(controller.personPic.path),
+                            fit: BoxFit.contain,
+                          ).image
+                        : Image.asset("assets/images/images.png").image,
+                  )),
               const SizedBox(
                 height: 20,
               ),
@@ -31,32 +45,38 @@ class AppDrawer extends StatelessWidget {
                 height: 20,
               ),
               ListTile(
+                onTap: () {
+                  Get.toNamed(Routes.PROFILE);
+                },
                 title: Text(
                   "Profile",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: AppDimens.font24,
+                  style: TextStyle(
+                    color: AppColors.whiteColor,
+                    fontSize: AppDimens.font26,
                   ),
                 ),
                 leading: Icon(
                   Icons.person,
-                  color: AppColors.bgColor,
-                  size: 24,
+                  color: AppColors.whiteColor,
+                  size: 40,
                 ),
               ),
               ListTile(
                 title: Text(
                   "Admin",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: AppDimens.font24,
+                  style: TextStyle(
+                    color: AppColors.whiteColor,
+                    fontSize: AppDimens.font26,
                   ),
                 ),
                 leading: Icon(
                   Icons.admin_panel_settings,
-                  color: AppColors.bgColor,
-                  size: 24,
+                  color: AppColors.whiteColor,
+                  size: 40,
                 ),
+                onTap: () {
+                  Get.toNamed(Routes.ADMIN);
+                },
               ),
             ],
           ),
@@ -64,18 +84,18 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             title: Text(
               "Billing",
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: AppDimens.font24,
+              style: TextStyle(
+                color: AppColors.whiteColor,
+                fontSize: AppDimens.font26,
               ),
             ),
             leading: Icon(
               Icons.home,
-              color: AppColors.bgColor,
-              size: 24,
+              color: AppColors.whiteColor,
+              size: 40,
             ),
             onTap: () {
-              // Get.toNamed(Routes.COMPANY_INFO);
+              Get.toNamed(Routes.HOME);
             },
           ),
 

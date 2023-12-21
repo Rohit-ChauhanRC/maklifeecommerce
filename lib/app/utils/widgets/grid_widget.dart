@@ -11,168 +11,216 @@ class GridWidget extends StatelessWidget {
   final List gridList = [
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
-      }
+      },
+      "quntity": 50,
+      "volume": "500ml"
     },
     {
       "icon": Icons.checklist_outlined,
-      "title": "Constants.checkStatus",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.CHECK_STATUS);
       }
     },
     {
       "icon": Icons.paypal,
-      "title": "Constants.payPartial",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.PAY_PARTIAL_INSTALLMENT);
       }
     },
     {
       "icon": Icons.view_carousel,
-      "title": "Constants.viewMember",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.VIEW_MEMBER_STATUS);
       }
     },
     {
       "icon": Icons.add_business_rounded,
-      "title": "Constants.addShare",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.ADDITION_SHARE_PURCHASE);
       }
     },
     {
       "icon": Icons.update_outlined,
-      "title": "Constants.updateRegMob",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.UPDATE_REG_MOB);
       }
     },
     {
       "icon": Icons.update_outlined,
-      "title": "Constants.shareAck",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.SHARE_ACKNOWLEDGEMENT);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
     },
     {
       "icon": Icons.wallet_membership,
-      "title": "Constants.memberCont",
+      "title": "Constants",
+      "quntity": 50,
+      "volume": "500ml",
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       }
@@ -192,6 +240,8 @@ class GridWidget extends StatelessWidget {
             icon: grid["icon"],
             title: grid["title"],
             onTap: grid["onTap"],
+            quantity: grid["quntity"],
+            volume: grid["volume"],
           );
         });
   }

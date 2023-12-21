@@ -76,24 +76,7 @@ class AppTheme {
             ),
           ),
         ),
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(
-            fontSize: AppDimens.font30,
-            fontWeight: FontWeight.bold,
-          ),
-          titleLarge: TextStyle(
-            fontSize: AppDimens.font26,
-            fontWeight: FontWeight.bold,
-          ),
-          bodyMedium: TextStyle(
-            fontSize: 72,
-            fontWeight: FontWeight.bold,
-          ),
-          displaySmall: TextStyle(
-            fontSize: 72,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        drawerTheme: DrawerThemeData(backgroundColor: Colors.transparent));
+        drawerTheme: DrawerThemeData(
+            backgroundColor: AppColors.brownColor.withOpacity(0.7)));
   }
 }

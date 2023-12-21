@@ -1,9 +1,33 @@
 import 'package:get/get.dart';
 
 class ReceiveProductsController extends GetxController {
-  //TODO: Implement ReceiveProductsController
+  //
 
-  final count = 0.obs;
+  String? inputProduct = "Select Product";
+  String? inputVendor = "Select Vendor";
+
+  List<String> productList = [
+    "Select Product",
+    "Milk",
+    "Paneer",
+    "Dahi",
+  ];
+
+  List<String> vendorList = [
+    "Select Vendor",
+    "Mak Dairy",
+    "Amul",
+    "Mother Dairy",
+  ];
+
+  final RxString _quantity = ''.obs;
+  String get quantity => _quantity.value;
+  set quantity(String str) => _quantity.value = str;
+
+  final RxString _invoiceId = ''.obs;
+  String get invoiceId => _invoiceId.value;
+  set invoiceId(String str) => _invoiceId.value = str;
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +42,4 @@ class ReceiveProductsController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

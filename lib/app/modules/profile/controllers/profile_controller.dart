@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:maklifeecommerce/app/modules/home/controllers/home_controller.dart';
+import 'package:maklifeecommerce/app/utils/utils.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ProfileController extends GetxController {
-  //TODO: Implement ProfileController
+  //
 
+  final HomeController homeController = Get.find<HomeController>();
   final count = 0.obs;
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await permissionCheck();
   }
 
   @override
@@ -19,5 +25,16 @@ class ProfileController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> permissionCheck() async {
+    await Permission.camera.request();
+    await Permission.mediaLibrary.request();
+  }
+
+  void getImage1() {
+    Utils.showImagePicker(onGetImage: (image) {
+      if (image != null) {
+        homeController.personPic = image;
+      }
+    });
+  }
 }
