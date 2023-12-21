@@ -23,62 +23,20 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
         margin: const EdgeInsets.all(20),
         child: ListView(
           children: [
-            DropdownFormField(
-              onSaved: (val) {},
-              items: controller.productList
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  // onTap: fn1,
-                  value: value,
-                  child: Container(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        value,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color(0xff2d1f76),
-                        ),
-                      )),
-                );
-              }).toList(),
-              initialValue: controller.inputProduct,
-              hintDrop: "Select Product",
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: Row(
-                children: [
-                  const Text(
-                    "if product not available in the above list please,",
-                    style: TextStyle(
-                      fontSize: AppDimens.font18,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.ADD_PRODUCT);
-                    },
-                    child: Text(
-                      "\tclick here",
-                      style: TextStyle(
-                        fontSize: AppDimens.font18,
-                        color: AppColors.reddishColor,
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppColors.reddishColor,
-                        decorationStyle: TextDecorationStyle.solid,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+            TextFormWidget(
+              label: "Please enter invoice id...",
+              onChanged: (val) => controller.invoiceId = val,
             ),
             const SizedBox(
               height: 20,
             ),
             TextFormWidget(
-              label: "Please enter product quantity...",
-              onChanged: (val) => controller.quantity = val,
+              label: "Please enter total amount...",
+              onChanged: (val) => controller.totalAmount = val,
               keyboardType: TextInputType.number,
+            ),
+            const SizedBox(
+              height: 20,
             ),
             const SizedBox(
               height: 20,
@@ -142,12 +100,76 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
             const SizedBox(
               height: 20,
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextFormWidget(
-              label: "Please enter invoice id...",
-              onChanged: (val) => controller.invoiceId = val,
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: AppColors.blackColor,
+                ),
+                borderRadius: BorderRadius.circular(20),
+                color: AppColors.whiteColor,
+              ),
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  DropdownFormField(
+                    onSaved: (val) {},
+                    items: controller.productList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        // onTap: fn1,
+                        value: value,
+                        child: Container(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Text(
+                              value,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Color(0xff2d1f76),
+                              ),
+                            )),
+                      );
+                    }).toList(),
+                    initialValue: controller.inputProduct,
+                    hintDrop: "Select Product",
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      children: [
+                        const Text(
+                          "if product not available in the above list please,",
+                          style: TextStyle(
+                            fontSize: AppDimens.font18,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(Routes.ADD_PRODUCT);
+                          },
+                          child: Text(
+                            "\tclick here",
+                            style: TextStyle(
+                              fontSize: AppDimens.font18,
+                              color: AppColors.reddishColor,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.reddishColor,
+                              decorationStyle: TextDecorationStyle.solid,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormWidget(
+                    label: "Please enter product quantity...",
+                    onChanged: (val) => controller.quantity = val,
+                    keyboardType: TextInputType.number,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 20,

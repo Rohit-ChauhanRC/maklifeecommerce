@@ -28,6 +28,10 @@ class ReceiveProductsController extends GetxController {
   String get invoiceId => _invoiceId.value;
   set invoiceId(String str) => _invoiceId.value = str;
 
+  final RxString _totalAmount = ''.obs;
+  String get totalAmount => _totalAmount.value;
+  set totalAmount(String str) => _totalAmount.value = str;
+
   @override
   void onInit() {
     super.onInit();

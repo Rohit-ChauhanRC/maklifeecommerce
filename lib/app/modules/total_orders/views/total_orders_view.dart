@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:maklifeecommerce/app/routes/app_pages.dart';
 import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
 import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
 
@@ -25,7 +26,9 @@ class TotalOrdersView extends GetView<TotalOrdersController> {
           itemCount: 4,
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(Routes.ORDER_DETAILS);
+              },
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -60,6 +63,9 @@ class TotalOrdersView extends GetView<TotalOrdersController> {
                         ),
                       ],
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,6 +85,9 @@ class TotalOrdersView extends GetView<TotalOrdersController> {
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
