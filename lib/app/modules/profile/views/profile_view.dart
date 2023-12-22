@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
+import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
 import 'package:maklifeecommerce/app/utils/widgets/text_form_widget.dart';
 import 'package:maklifeecommerce/app/utils/widgets/upload_image_widget.dart';
 
@@ -17,8 +19,10 @@ class ProfileView extends GetView<ProfileController> {
       ),
       body: Container(
         margin: const EdgeInsets.all(10),
-        child: ListView(
-          shrinkWrap: true,
+        // width: Get.width / 1.2,
+        // alignment: Alignment.center,
+        child: Column(
+          // shrinkWrap: true,
           children: [
             const SizedBox(
               height: 20,
@@ -30,22 +34,34 @@ class ProfileView extends GetView<ProfileController> {
             const SizedBox(
               height: 20,
             ),
+            SizedBox(
+              child: Text(
+                "Customer ID: 223234",
+                style: TextStyle(
+                  fontSize: AppDimens.font22,
+                  color: AppColors.brownColor,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             TextFormWidget(
-              label: "Pleae enter name...",
+              label: "Please enter Shop Name...",
               onChanged: (val) {},
             ),
             const SizedBox(
               height: 20,
             ),
             TextFormWidget(
-              label: "Pleae enter address...",
+              label: "Pleae enter Shop Address...",
               onChanged: (val) {},
             ),
             const SizedBox(
               height: 20,
             ),
             TextFormWidget(
-              label: "Pleae enter contact no...",
+              label: "Pleae enter Contact No...",
               onChanged: (val) {},
               keyboardType: TextInputType.phone,
             ),
@@ -53,9 +69,11 @@ class ProfileView extends GetView<ProfileController> {
               height: 20,
             ),
             SizedBox(
-                width: Get.width / 4,
+                // width: Get.width / 8,
                 child: ElevatedButton(
-                    onPressed: () {}, child: const Text("Save"))),
+                    // style: ElevatedButton.styleFrom(maximumSize: Size(200, 50)),
+                    onPressed: () {},
+                    child: const Text("Save"))),
           ],
         ),
       ),

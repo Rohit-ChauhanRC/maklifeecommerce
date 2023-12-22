@@ -200,16 +200,16 @@ class HomeView extends GetView<HomeController> {
               ),
               child: const Text("Save"),
             ),
-            const SizedBox(
-              width: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.reddishColor,
-              ),
-              child: const Text("Cart"),
-            )
+            // const SizedBox(
+            //   width: 20,
+            // ),
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: AppColors.reddishColor,
+            //   ),
+            //   child: const Text("Cart"),
+            // )
           ],
         ),
       ]),
