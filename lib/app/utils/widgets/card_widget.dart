@@ -23,7 +23,7 @@ class CardWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 130,
+        height: 200,
         width: 120,
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -106,7 +106,27 @@ class CardWidget extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                "₹5000.0",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.brownColor,
+                  fontSize: AppDimens.font16,
+                  overflow: TextOverflow.visible,
+                ),
+                overflow: TextOverflow.visible,
+              ),
+            ),
           ],
         ),
       ),

@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:maklifeecommerce/app/utils/utils.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AddProductController extends GetxController {
   //
@@ -26,6 +29,10 @@ class AddProductController extends GetxController {
   String get price => _price.value;
   set price(String str) => _price.value = str;
 
+  final Rx<XFile> _personPic = Rx<XFile>(XFile(''));
+  XFile get personPic => _personPic.value;
+  set personPic(XFile v) => _personPic.value = v;
+
   @override
   void onInit() {
     super.onInit();
@@ -39,5 +46,18 @@ class AddProductController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  Future<void> permissionCheck() async {
+    await Permission.camera.request();
+    await Permission.mediaLibrary.request();
+  }
+
+  void getImage1() {
+    Utils.showImagePicker(onGetImage: (image) {
+      if (image != null) {
+        personPic = image;
+      }
+    });
   }
 }

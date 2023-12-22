@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
 import 'package:maklifeecommerce/app/utils/widgets/text_form_widget.dart';
+import 'package:maklifeecommerce/app/utils/widgets/upload_image_widget.dart';
 
 import '../controllers/add_product_controller.dart';
 
@@ -21,6 +22,16 @@ class AddProductView extends GetView<AddProductController> {
           key: controller.productsFormKey,
           child: ListView(
             children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Obx(() => UploadImageWidget(
+                    imageFile: controller.personPic,
+                    onTap: controller.getImage1,
+                  )),
+              const SizedBox(
+                height: 20,
+              ),
               TextFormWidget(
                 label: "Please enter name...",
                 onChanged: (val) => controller.name = val,

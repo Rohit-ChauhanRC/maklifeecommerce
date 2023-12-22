@@ -14,10 +14,14 @@ import '../modules/manage_products/bindings/manage_products_binding.dart';
 import '../modules/manage_products/views/manage_products_view.dart';
 import '../modules/order_details/bindings/order_details_binding.dart';
 import '../modules/order_details/views/order_details_view.dart';
+import '../modules/product_list/bindings/product_list_binding.dart';
+import '../modules/product_list/views/product_list_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/receive_products/bindings/receive_products_binding.dart';
 import '../modules/receive_products/views/receive_products_view.dart';
+import '../modules/restore_data/bindings/restore_data_binding.dart';
+import '../modules/restore_data/views/restore_data_view.dart';
 import '../modules/sign_up/bindings/sign_up_binding.dart';
 import '../modules/sign_up/views/sign_up_view.dart';
 import '../modules/total_orders/bindings/total_orders_binding.dart';
@@ -85,6 +89,16 @@ class AppPages {
       name: _Paths.ORDER_DETAILS,
       page: () => const OrderDetailsView(),
       binding: OrderDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESTORE_DATA,
+      page: () => const RestoreDataView(),
+      binding: RestoreDataBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUCT_LIST,
+      page: () => const ProductListView(),
+      binding: ProductListBinding(),
     ),
   ];
 }

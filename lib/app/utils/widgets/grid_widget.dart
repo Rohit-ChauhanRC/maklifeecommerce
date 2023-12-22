@@ -15,7 +15,7 @@ class GridWidget extends StatelessWidget {
       "onTap": () {
         // Get.toNamed(Routes.MEMBER_CONTRIBUTION);
       },
-      "quntity": 50,
+      "quntity": 500,
       "volume": "500ml"
     },
     {
@@ -232,6 +232,7 @@ class GridWidget extends StatelessWidget {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
+          mainAxisExtent: 250,
         ),
         itemCount: gridList.length,
         itemBuilder: (_, i) {
@@ -242,6 +243,7 @@ class GridWidget extends StatelessWidget {
             onTap: grid["onTap"],
             quantity: grid["quntity"],
             volume: grid["volume"],
+            // price:grid["price"]
           );
         });
   }

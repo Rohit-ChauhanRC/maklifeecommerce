@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maklifeecommerce/app/modules/home/controllers/home_controller.dart';
@@ -34,6 +36,7 @@ class ProfileController extends GetxController {
     Utils.showImagePicker(onGetImage: (image) {
       if (image != null) {
         homeController.personPic = image;
+        //  File(homeController.personPic.path).renameSync(newPath)
       }
     });
   }
