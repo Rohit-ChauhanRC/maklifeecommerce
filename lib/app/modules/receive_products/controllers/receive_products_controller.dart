@@ -1,8 +1,20 @@
 import 'package:get/get.dart';
+import 'package:maklifeecommerce/app/data/database/product_db.dart';
 import 'package:maklifeecommerce/app/data/models/product_list_model.dart';
+import 'package:maklifeecommerce/app/data/models/product_model.dart';
 
 class ReceiveProductsController extends GetxController {
   //
+
+  final ProductDB productDB = ProductDB();
+
+  final RxList<ProductModel> _products = RxList<ProductModel>();
+  List<ProductModel> get products => _products;
+  set products(List<ProductModel> lt) => _products.assignAll(lt);
+
+  final RxInt _id = RxInt(0);
+  int get id => _id.value;
+  set id(int i) => _id.value = i;
 
   String? inputProduct = "Select Product";
   String? inputVendor = "Select Vendor";
@@ -33,16 +45,16 @@ class ReceiveProductsController extends GetxController {
   String get totalAmount => _totalAmount.value;
   set totalAmount(String str) => _totalAmount.value = str;
 
-  final RxList<ProductListModel> _productListModel =
-      RxList([ProductListModel(productName: "", quantity: "", index: 1)]);
+  final RxList<ProductModel> _productListModel =
+      RxList([ProductModel(name: "", quantity: 0, price: 0, weight: "")]);
 
-  List<ProductListModel> get productListModel => _productListModel;
-  set productListModel(List<ProductListModel> pr) =>
-      _productListModel.addAll(pr);
+  List<ProductModel> get productListModel => _productListModel;
+  set productListModel(List<ProductModel> pr) => _productListModel.addAll(pr);
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await fetchProduct();
   }
 
   @override
@@ -55,9 +67,24 @@ class ReceiveProductsController extends GetxController {
     super.onClose();
   }
 
+  Future<void> fetchProduct() async {
+    // _products =
+    print("121212");
+    products.assignAll(await productDB.fetchAll());
+    // if (kDebugMode) {
+    //   print("${_products.first.name} name");
+    // }
+  }
+
   void addProductList(index) {
-    productListModel
-        .add(ProductListModel(productName: "", quantity: "", index: index + 1));
+    // productDB.update(id: id, quantity: int.tryParse(quantity));
+
+    productListModel.add(ProductModel(
+      name: "",
+      price: 0,
+      weight: "",
+      description: "",
+    ));
   }
 
   void removeProductList(int index, ProductListModel pr) {

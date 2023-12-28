@@ -61,7 +61,9 @@ class AddProductView extends GetView<AddProductController> {
                 height: 20,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.checkValidate();
+                },
                 child: Text("Add"),
                 style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
                     backgroundColor:

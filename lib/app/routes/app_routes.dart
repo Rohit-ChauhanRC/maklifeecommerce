@@ -16,6 +16,9 @@ abstract class Routes {
   static const ORDER_DETAILS = _Paths.ORDER_DETAILS;
   static const RESTORE_DATA = _Paths.RESTORE_DATA;
   static const PRODUCT_LIST = _Paths.PRODUCT_LIST;
+  static const EDIT_PRODUCT_ITEM = _Paths.EDIT_PRODUCT_ITEM;
+  static const VENDOR_LIST = _Paths.VENDOR_LIST;
+  static const EDIT_VENDOR = _Paths.EDIT_VENDOR;
 }
 
 abstract class _Paths {
@@ -33,4 +36,7 @@ abstract class _Paths {
   static const ORDER_DETAILS = '/order-details';
   static const RESTORE_DATA = '/restore-data';
   static const PRODUCT_LIST = '/product-list';
+  static const EDIT_PRODUCT_ITEM = '/edit-product-item';
+  static const VENDOR_LIST = '/vendor-list';
+  static const EDIT_VENDOR = '/edit-vendor';
 }

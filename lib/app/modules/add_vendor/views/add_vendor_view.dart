@@ -22,39 +22,41 @@ class AddVendorView extends GetView<AddVendorController> {
           child: ListView(
             children: [
               TextFormWidget(
-                label: "Please enter name...",
+                label: "Please enter Vendor Name...",
                 onChanged: (val) => controller.name = val,
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormWidget(
-                label: "Please enter mobile no...",
+                label: "Please enter Vendor Mobile No...",
                 onChanged: (val) => controller.mobileNumber = val,
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormWidget(
-                label: "Please enter GSTIN No...",
+                label: "Please enter Vendor GSTIN No...",
                 onChanged: (val) => controller.gst = val,
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormWidget(
-                label: "Please enter address...",
+                label: "Please enter Vendor Address...",
                 onChanged: (val) => controller.address = val,
               ),
               const SizedBox(
                 height: 20,
               ),
               ElevatedButton(
-                onPressed: () {},
-                child: Text("Add"),
+                onPressed: () {
+                  controller.checkValidate();
+                },
                 style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
                     backgroundColor:
                         MaterialStatePropertyAll(AppColors.brownColor)),
+                child: const Text("Add"),
               )
             ],
           ),

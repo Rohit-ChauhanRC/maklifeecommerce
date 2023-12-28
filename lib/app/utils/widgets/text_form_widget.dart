@@ -8,16 +8,19 @@ class TextFormWidget extends StatelessWidget {
     required this.label,
     this.keyboardType,
     this.readOnly = false,
+    this.initialValue,
   });
 
   final void Function(String)? onChanged;
   final String label;
   final TextInputType? keyboardType;
   final bool readOnly;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       autovalidateMode: AutovalidateMode.always,
       onChanged: onChanged,
       // focusNode: FocusScopeNode(canRequestFocus: true),

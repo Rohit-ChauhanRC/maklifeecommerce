@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:maklifeecommerce/app/data/database/vendor_db.dart';
 
 class AddVendorController extends GetxController {
   //
   GlobalKey<FormState>? vendorFormKey = GlobalKey<FormState>();
+
+  final VendorDB vendorDB = VendorDB();
 
   final RxString _mobileNumber = ''.obs;
   String get mobileNumber => _mobileNumber.value;
@@ -34,5 +37,23 @@ class AddVendorController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void checkValidate() async {
+    if (!vendorFormKey!.currentState!.validate()) {
+      return null;
+    }
+    await createVendorTable().then((value) {
+      Get.back();
+    });
+  }
+
+  Future<void> createVendorTable() async {
+    await vendorDB.create(
+      name: name,
+      address: address,
+      gst: gst,
+      mobileNo: int.tryParse(mobileNumber),
+    );
   }
 }

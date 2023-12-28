@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:maklifeecommerce/app/data/database/product_db.dart';
 import 'package:maklifeecommerce/app/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -8,6 +11,8 @@ class AddProductController extends GetxController {
   //
 
   GlobalKey<FormState>? productsFormKey = GlobalKey<FormState>();
+
+  final ProductDB productDB = ProductDB();
 
   final RxString _decription = ''.obs;
   String get decription => _decription.value;
@@ -59,5 +64,24 @@ class AddProductController extends GetxController {
         personPic = image;
       }
     });
+  }
+
+  void checkValidate() async {
+    if (!productsFormKey!.currentState!.validate()) {
+      return null;
+    }
+    await createproductTable().then((value) {
+      Get.back();
+    });
+  }
+
+  Future<void> createproductTable() async {
+    await productDB.create(
+      name: name,
+      weight: weight,
+      price: price,
+      quantity: quantity,
+      picture: File(personPic.path.toString()).readAsBytesSync(),
+    );
   }
 }

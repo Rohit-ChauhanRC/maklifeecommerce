@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:maklifeecommerce/app/data/models/product_list_model.dart';
+import 'package:maklifeecommerce/app/data/models/product_model.dart';
 import 'package:maklifeecommerce/app/routes/app_pages.dart';
 import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
 import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
@@ -107,7 +108,6 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
               child: Obx(() => ListView.builder(
                   itemCount: controller.productListModel.length,
                   itemBuilder: (ctx, index) {
-                    ProductListModel _pr = controller.productListModel[index];
                     return Container(
                       // key: GlobalObjectKey(index),
                       margin: const EdgeInsets.only(top: 10),
@@ -121,29 +121,36 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
                       padding: const EdgeInsets.all(10),
                       child: Column(
                         children: [
-                          DropdownFormField(
-                            onSaved: (val) {
-                              _pr.productName = val.toString();
-                            },
-                            items: controller.productList
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                // onTap: fn1,
-                                value: value,
-                                child: Container(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      value,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        color: Color(0xff2d1f76),
-                                      ),
-                                    )),
-                              );
-                            }).toList(),
-                            initialValue: _pr.productName,
-                            hintDrop: "Select Product",
-                          ),
+                          Obx(() => controller.products.length > 1
+                              ? DropdownFormField(
+                                  onSaved: (val) {
+                                    // _pr.productName = val.toString();
+                                    controller.products.map((e) => e.name == val
+                                        ? controller.id = e.id!
+                                        : null);
+                                  },
+                                  items: controller.products
+                                      .map<DropdownMenuItem<String>>(
+                                          (ProductModel value) {
+                                    return DropdownMenuItem<String>(
+                                      // onTap: fn1,
+                                      value: value.name,
+                                      child: Container(
+                                          padding:
+                                              const EdgeInsets.only(left: 15),
+                                          child: Text(
+                                            value.name,
+                                            style: const TextStyle(
+                                              fontSize: 15,
+                                              color: Color(0xff2d1f76),
+                                            ),
+                                          )),
+                                    );
+                                  }).toList(),
+                                  initialValue: controller.inputProduct,
+                                  hintDrop: "Select Product",
+                                )
+                              : const SizedBox()),
                           Container(
                             margin: const EdgeInsets.only(top: 20),
                             child: Row(
@@ -178,7 +185,7 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
                           ),
                           TextFormWidget(
                             label: "Please enter product quantity...",
-                            onChanged: (val) => _pr.quantity = val,
+                            onChanged: (val) => controller.quantity = val,
                             keyboardType: TextInputType.number,
                           ),
                           Row(
@@ -199,7 +206,7 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
                                       backgroundColor: AppColors.reddishColor,
                                     ),
                                     onPressed: () {
-                                      controller.removeProductList(index, _pr);
+                                      // controller.removeProductList(index, _pr);
                                     },
                                     child: const Text("REMOVE")),
                             ],

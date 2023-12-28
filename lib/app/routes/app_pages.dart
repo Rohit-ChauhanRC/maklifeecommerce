@@ -6,6 +6,10 @@ import '../modules/add_vendor/bindings/add_vendor_binding.dart';
 import '../modules/add_vendor/views/add_vendor_view.dart';
 import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
+import '../modules/edit_product_item/bindings/edit_product_item_binding.dart';
+import '../modules/edit_product_item/views/edit_product_item_view.dart';
+import '../modules/edit_vendor/bindings/edit_vendor_binding.dart';
+import '../modules/edit_vendor/views/edit_vendor_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -26,6 +30,8 @@ import '../modules/sign_up/bindings/sign_up_binding.dart';
 import '../modules/sign_up/views/sign_up_view.dart';
 import '../modules/total_orders/bindings/total_orders_binding.dart';
 import '../modules/total_orders/views/total_orders_view.dart';
+import '../modules/vendor_list/bindings/vendor_list_binding.dart';
+import '../modules/vendor_list/views/vendor_list_view.dart';
 
 part 'app_routes.dart';
 
@@ -99,6 +105,21 @@ class AppPages {
       name: _Paths.PRODUCT_LIST,
       page: () => const ProductListView(),
       binding: ProductListBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PRODUCT_ITEM,
+      page: () => const EditProductItemView(),
+      binding: EditProductItemBinding(),
+    ),
+    GetPage(
+      name: _Paths.VENDOR_LIST,
+      page: () => const VendorListView(),
+      binding: VendorListBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_VENDOR,
+      page: () => const EditVendorView(),
+      binding: EditVendorBinding(),
     ),
   ];
 }
