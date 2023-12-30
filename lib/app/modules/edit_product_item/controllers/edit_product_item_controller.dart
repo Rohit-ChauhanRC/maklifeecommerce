@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
 import 'package:maklifeecommerce/app/data/models/product_model.dart';
+import 'package:maklifeecommerce/app/modules/home/controllers/home_controller.dart';
 import 'package:maklifeecommerce/app/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -14,11 +15,13 @@ class EditProductItemController extends GetxController {
 
   final ProductDB productDB = ProductDB();
 
+  final HomeController _homeController = Get.find();
+
   // late ProductModel product;
 
-  final RxString _decription = ''.obs;
-  String get decription => _decription.value;
-  set decription(String mobileNumber) => _decription.value = decription;
+  final RxString _description = ''.obs;
+  String get description => _description.value;
+  set description(String mobileNumber) => _description.value = description;
 
   final RxString _name = ''.obs;
   String get name => _name.value;
@@ -28,13 +31,13 @@ class EditProductItemController extends GetxController {
   String get weight => _weight.value;
   set weight(String str) => _weight.value = str;
 
-  final RxInt _quantity = 0.obs;
-  int get quantity => _quantity.value;
-  set quantity(int str) => _quantity.value = str;
+  final RxString _quantity = "".obs;
+  String get quantity => _quantity.value;
+  set quantity(String str) => _quantity.value = str;
 
-  final RxInt _price = 0.obs;
-  int get price => _price.value;
-  set price(int str) => _price.value = str;
+  final RxString _price = "".obs;
+  String get price => _price.value;
+  set price(String str) => _price.value = str;
 
   final Rx<XFile> _personPic = Rx<XFile>(XFile(''));
   XFile get personPic => _personPic.value;
@@ -92,24 +95,31 @@ class EditProductItemController extends GetxController {
   }
 
   Future<void> updateProductTable() async {
-    await productDB.update(
+    await productDB
+        .update(
       id: Get.arguments!,
       name: name,
       weight: weight,
       price: price,
       quantity: quantity,
+      description: description.toString(),
       picture: (imgeDb)
           ? imageLocal
           : File(personPic.path.toString()).readAsBytesSync(),
-    );
+    )
+        .then((value) async {
+      await _homeController.fetchProduct();
+    });
   }
 
   Future<void> deleteProductTable() async {
     await productDB
         .delete(
-          id: Get.arguments!,
-        )
-        .then((value) => Get.back());
+      id: Get.arguments!,
+    )
+        .then((value) async {
+      await _homeController.fetchProduct().then((value) => Get.back());
+    });
   }
 
   Future<void> fetchProductById() async {
@@ -118,7 +128,7 @@ class EditProductItemController extends GetxController {
       weight = value.weight;
       price = value.price;
       quantity = value.quantity!;
-      decription = value.description.toString();
+      description = value.description.toString();
       imageLocal = value.picture!;
       imageDb = true;
     }).then((value) {

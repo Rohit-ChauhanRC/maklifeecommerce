@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maklifeecommerce/app/data/models/product_model.dart';
+import 'package:maklifeecommerce/app/data/models/vendor_model.dart';
 import 'package:maklifeecommerce/app/routes/app_pages.dart';
 import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
 import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
 
-class ProductListItem extends StatelessWidget {
-  const ProductListItem({super.key, required this.product});
-  final ProductModel product;
+class VendorListItem extends StatelessWidget {
+  const VendorListItem({super.key, required this.vendorModel});
+  final VendorModel vendorModel;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.EDIT_PRODUCT_ITEM, arguments: product.id);
+        Get.toNamed(Routes.EDIT_VENDOR, arguments: vendorModel.id);
       },
       child: Container(
         height: 250,
@@ -29,17 +29,6 @@ class ProductListItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: product.picture != null
-                  ? Image.memory(
-                      product.picture!,
-                      fit: BoxFit.contain,
-                    )
-                  : Image.asset(
-                      "assets/images/images.png",
-                      fit: BoxFit.contain,
-                    ),
-            ),
             Container(
               margin: const EdgeInsets.all(10),
               child: Column(
@@ -60,7 +49,7 @@ class ProductListItem extends StatelessWidget {
                         width: 30,
                       ),
                       Text(
-                        product.name ?? "",
+                        vendorModel.name ?? "",
                         style: TextStyle(
                           fontSize: AppDimens.font22,
                           color: AppColors.reddishColor,
@@ -75,7 +64,7 @@ class ProductListItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Weight:",
+                        "Mobile No.:",
                         style: TextStyle(
                           fontSize: AppDimens.font22,
                           color: AppColors.brownColor,
@@ -85,7 +74,7 @@ class ProductListItem extends StatelessWidget {
                         width: 25,
                       ),
                       Text(
-                        product.weight ?? "",
+                        vendorModel.mobileNo.toString() ?? "",
                         style: TextStyle(
                           fontSize: AppDimens.font22,
                           color: AppColors.reddishColor,
@@ -100,7 +89,7 @@ class ProductListItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Price",
+                        "GSTIN No.",
                         style: TextStyle(
                           fontSize: AppDimens.font22,
                           color: AppColors.brownColor,
@@ -110,7 +99,7 @@ class ProductListItem extends StatelessWidget {
                         width: 50,
                       ),
                       Text(
-                        "₹${product.price}" ?? "₹0.0",
+                        "₹${vendorModel.gst}" ?? "",
                         style: TextStyle(
                           fontSize: AppDimens.font22,
                           color: AppColors.reddishColor,
@@ -125,7 +114,7 @@ class ProductListItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Quntity",
+                        "Address",
                         style: TextStyle(
                           fontSize: AppDimens.font22,
                           color: AppColors.brownColor,
@@ -135,7 +124,7 @@ class ProductListItem extends StatelessWidget {
                         width: 30,
                       ),
                       Text(
-                        product.quantity.toString() ?? "0",
+                        vendorModel.address.toString() ?? "",
                         style: TextStyle(
                           fontSize: AppDimens.font22,
                           color: AppColors.reddishColor,

@@ -37,31 +37,34 @@ class DateTimePickerWidget extends StatelessWidget {
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
-        contentPadding: const EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(20),
         hintText: hintText,
         // hintStyle: Styles.hintStyle,
-        suffixIcon: const Icon(
-          Icons.date_range,
-          color: Colors.green,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.black,
+        suffixIcon: Container(
+          margin: const EdgeInsets.only(right: 20),
+          child: const Icon(
+            Icons.date_range,
+            color: Colors.green,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.black,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.red,
-          ),
-        ),
+        // border: OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.black,
+        //   ),
+        // ),
+        // focusedBorder: OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.black,
+        //   ),
+        // ),
+        // errorBorder: OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.red,
+        //   ),
+        // ),
       ),
       format: format,
       controller: controller,

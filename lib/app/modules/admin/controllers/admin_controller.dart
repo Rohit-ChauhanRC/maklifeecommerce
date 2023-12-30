@@ -46,6 +46,13 @@ class AdminController extends GetxController {
       "onTap": () {
         Get.toNamed(Routes.PRODUCT_LIST);
       },
+    },
+    {
+      "icon": Icons.local_shipping_rounded,
+      "title": "Vendor List",
+      "onTap": () {
+        Get.toNamed(Routes.VENDOR_LIST);
+      },
     }
   ];
 

@@ -1,12 +1,19 @@
 import 'package:get/get.dart';
+import 'package:maklifeecommerce/app/data/database/vendor_db.dart';
+import 'package:maklifeecommerce/app/data/models/vendor_model.dart';
 
 class VendorListController extends GetxController {
-  //TODO: Implement VendorListController
+  //
+  final VendorDB vendorDB = VendorDB();
 
-  final count = 0.obs;
+  final RxList<VendorModel> _vendors = RxList<VendorModel>();
+  List<VendorModel> get vendors => _vendors;
+  set vendors(List<VendorModel> lt) => _vendors.assignAll(lt);
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await fetchAll();
   }
 
   @override
@@ -19,5 +26,9 @@ class VendorListController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  // void increment() => count.value++;
+
+  Future<void> fetchAll() async {
+    vendors.assignAll(await vendorDB.fetchAll());
+  }
 }

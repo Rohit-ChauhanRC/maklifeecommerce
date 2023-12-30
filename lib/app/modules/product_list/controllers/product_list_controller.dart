@@ -2,16 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
 import 'package:maklifeecommerce/app/data/models/product_model.dart';
+import 'package:maklifeecommerce/app/modules/home/controllers/home_controller.dart';
 
 class ProductListController extends GetxController {
   //
   final ProductDB productDB = ProductDB();
 
-  final RxList<ProductModel> _products = RxList<ProductModel>();
-  List<ProductModel> get products => _products;
-  set products(List<ProductModel> lt) => _products.assignAll(lt);
+  final HomeController homeController = Get.find();
 
-  final count = 0.obs;
+  // final RxList<ProductModel> _products = RxList<ProductModel>();
+  // List<ProductModel> get products => _products;
+  // set products(List<ProductModel> lt) => _products.assignAll(lt);
+
   @override
   void onInit() async {
     super.onInit();
@@ -20,7 +22,7 @@ class ProductListController extends GetxController {
       print("121212");
     }
 
-    await fetchProduct();
+    await homeController.fetchProduct();
   }
 
   @override
@@ -31,16 +33,5 @@ class ProductListController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-  }
-
-  void increment() => count.value++;
-
-  Future<void> fetchProduct() async {
-    // _products =
-    print("121212");
-    products.assignAll(await productDB.fetchAll());
-    // if (kDebugMode) {
-    //   print("${_products.first.name} name");
-    // }
   }
 }

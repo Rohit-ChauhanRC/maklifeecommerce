@@ -39,7 +39,7 @@ class DataBaseService {
   Future<void> create(Database database, int verion) async {
     await ProductDB().createTable(database);
     await VendorDB().createTable(database);
-    // await ReceivingDB().createTable(database);
+    await ReceivingDB().createTable(database);
     // await SellDB().createTable(database);
   }
 }

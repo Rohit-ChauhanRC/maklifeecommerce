@@ -13,8 +13,8 @@ class ProductDB {
     "id" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "weight" TEXT NOT NULL,
-    "price" INTEGER NOT NULL,
-    "quantity" INTEGER,
+    "price" TEXT NOT NULL,
+    "quantity" TEXT,
     "description" TEXT,
     "picture" BLOB,
     PRIMARY KEY("id" AUTOINCREMENT)
@@ -35,7 +35,7 @@ class ProductDB {
       '''
         INSERT INTO $tableName (name,weight,price,quantity,description, picture) VALUES (?,?,?,?,?,?)
       ''',
-      [name, weight, price, quantity ?? null, description, picture],
+      [name, weight, price, quantity, description, picture],
     );
   }
 
@@ -62,8 +62,8 @@ class ProductDB {
     required int id,
     String? name,
     String? weight,
-    int? price,
-    int? quantity,
+    String? price,
+    String? quantity,
     String? description,
     Uint8List? picture,
   }) async {

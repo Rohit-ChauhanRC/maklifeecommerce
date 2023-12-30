@@ -1,6 +1,4 @@
-import 'package:flutter/services.dart';
 import 'package:maklifeecommerce/app/data/database/database_service.dart';
-import 'package:maklifeecommerce/app/data/models/product_model.dart';
 import 'package:maklifeecommerce/app/data/models/vendor_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -30,7 +28,7 @@ class VendorDB {
     final database = await DataBaseService().database;
     return await database.rawInsert(
       '''
-        INSERT INTO $tableName (name,mobileNo,gst,address,) VALUES (?,?,?,?)
+        INSERT INTO $tableName (name,mobileNo,gst,address) VALUES (?,?,?,?)
       ''',
       [name, mobileNo, gst, address],
     );
@@ -76,7 +74,7 @@ class VendorDB {
     );
   }
 
-  Future<void> delete(int id) async {
+  Future<void> delete({required int id}) async {
     final database = await DataBaseService().database;
 
     await database.rawDelete('''

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
+import 'package:maklifeecommerce/app/modules/home/controllers/home_controller.dart';
 import 'package:maklifeecommerce/app/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -13,6 +14,8 @@ class AddProductController extends GetxController {
   GlobalKey<FormState>? productsFormKey = GlobalKey<FormState>();
 
   final ProductDB productDB = ProductDB();
+
+  final HomeController homeController = Get.find();
 
   final RxString _decription = ''.obs;
   String get decription => _decription.value;
@@ -26,11 +29,11 @@ class AddProductController extends GetxController {
   String get weight => _weight.value;
   set weight(String str) => _weight.value = str;
 
-  final RxString _quantity = ''.obs;
+  final RxString _quantity = '0'.obs;
   String get quantity => _quantity.value;
   set quantity(String str) => _quantity.value = str;
 
-  final RxString _price = ''.obs;
+  final RxString _price = '0.0'.obs;
   String get price => _price.value;
   set price(String str) => _price.value = str;
 
@@ -70,18 +73,20 @@ class AddProductController extends GetxController {
     if (!productsFormKey!.currentState!.validate()) {
       return null;
     }
-    await createproductTable().then((value) {
-      Get.back();
-    });
+    await createproductTable();
   }
 
   Future<void> createproductTable() async {
-    await productDB.create(
+    await productDB
+        .create(
       name: name,
       weight: weight,
       price: price,
       quantity: quantity,
       picture: File(personPic.path.toString()).readAsBytesSync(),
-    );
+    )
+        .then((value) async {
+      await homeController.fetchProduct().then((value) => {Get.back()});
+    });
   }
 }

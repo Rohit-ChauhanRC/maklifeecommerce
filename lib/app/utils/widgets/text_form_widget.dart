@@ -25,7 +25,8 @@ class TextFormWidget extends StatelessWidget {
       onChanged: onChanged,
       // focusNode: FocusScopeNode(canRequestFocus: true),
       inputFormatters: [
-        if (keyboardType == TextInputType.number)
+        if (keyboardType == TextInputType.number ||
+            keyboardType == TextInputType.phone)
           FilteringTextInputFormatter.digitsOnly,
         // LimitRange(5),
       ],
@@ -34,24 +35,24 @@ class TextFormWidget extends StatelessWidget {
       decoration: InputDecoration(
         label: Text(label),
         // hintText: label,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.black,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.black,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.red,
-          ),
-        ),
+        // border: OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.black,
+        //   ),
+        // ),
+        // focusedBorder: OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.black,
+        //   ),
+        // ),
+        // errorBorder: OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(10),
+        //   borderSide: const BorderSide(
+        //     color: Colors.red,
+        //   ),
+        // ),
       ),
     );
   }

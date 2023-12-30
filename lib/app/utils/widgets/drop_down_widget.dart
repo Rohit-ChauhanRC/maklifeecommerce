@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
 import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
 
 class DropdownFormField<T> extends FormField<T> {
@@ -7,6 +8,7 @@ class DropdownFormField<T> extends FormField<T> {
     required T initialValue,
     required List<DropdownMenuItem<T>> items,
     required FormFieldSetter<T> onSaved,
+    FormFieldSetter<T>? onChanged,
     FormFieldValidator<T>? validator,
     String? hintDrop,
     InputDecoration? decoration,
@@ -25,14 +27,14 @@ class DropdownFormField<T> extends FormField<T> {
                   hintStyle: const TextStyle(fontSize: AppDimens.font18),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
+                    borderSide: BorderSide(
+                      color: AppColors.brownColor,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
+                    borderSide: BorderSide(
+                      color: AppColors.brownColor,
                     ),
                   ),
                   errorBorder: OutlineInputBorder(

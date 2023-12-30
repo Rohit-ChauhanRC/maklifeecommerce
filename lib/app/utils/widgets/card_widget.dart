@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
 import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
@@ -6,15 +7,17 @@ import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
 class CardWidget extends StatelessWidget {
   const CardWidget({
     super.key,
-    required this.icon,
+    required this.picture,
     required this.title,
     this.onTap,
     required this.quantity,
     required this.volume,
+    required this.price,
   });
-  final IconData icon;
+  final Uint8List? picture;
   final String title;
-  final int quantity;
+  final String? quantity;
+  final String price;
   final String volume;
   final void Function()? onTap;
 
@@ -33,18 +36,32 @@ class CardWidget extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(0),
         child: Column(
           children: [
-            Image.asset(
-              "assets/images/Paneer.png",
-              height: 100,
-              width: 120,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(
-              height: 5,
-            ),
+            picture != null
+                ? SizedBox(
+                    height: 140,
+                    width: 190,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)),
+                      child: Image.memory(
+                        picture!,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  )
+                : Image.asset(
+                    "assets/images/Paneer.png",
+                    height: 120,
+                    width: 120,
+                    fit: BoxFit.cover,
+                  ),
+            // const SizedBox(
+            //   height: 2,
+            // ),
             SizedBox(
               // width: 100,
               child: Text(
@@ -59,13 +76,14 @@ class CardWidget extends StatelessWidget {
                 overflow: TextOverflow.visible,
               ),
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            // const SizedBox(
+            //   height: 2,
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
+                  margin: const EdgeInsets.only(left: 10),
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -75,17 +93,18 @@ class CardWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)),
                   // width: 100,
                   child: Text(
-                    quantity.toString(),
+                    "${quantity != "" ? quantity : 0}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.brownColor,
-                      fontSize: AppDimens.font16,
+                      fontSize: AppDimens.font12,
                       overflow: TextOverflow.visible,
                     ),
                     overflow: TextOverflow.visible,
                   ),
                 ),
                 Container(
+                  margin: const EdgeInsets.only(right: 10),
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -95,11 +114,11 @@ class CardWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    volume,
+                    "${volume != "" ? volume : 0}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.brownColor,
-                      fontSize: AppDimens.font16,
+                      fontSize: AppDimens.font12,
                       overflow: TextOverflow.visible,
                     ),
                     overflow: TextOverflow.visible,
@@ -108,7 +127,7 @@ class CardWidget extends StatelessWidget {
               ],
             ),
             Container(
-              margin: const EdgeInsets.only(top: 10),
+              // margin: const EdgeInsets.only(top: 10),
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -117,11 +136,11 @@ class CardWidget extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(10)),
               child: Text(
-                "₹5000.0",
+                "₹$price" ?? "0",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppColors.brownColor,
-                  fontSize: AppDimens.font16,
+                  fontSize: AppDimens.font12,
                   overflow: TextOverflow.visible,
                 ),
                 overflow: TextOverflow.visible,

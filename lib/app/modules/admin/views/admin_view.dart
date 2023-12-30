@@ -15,7 +15,7 @@ class AdminView extends GetView<AdminController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AdminView'),
+        title: const Text('Admin'),
         centerTitle: true,
       ),
       body: Container(

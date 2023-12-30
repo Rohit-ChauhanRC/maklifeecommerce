@@ -43,17 +43,19 @@ class AddVendorController extends GetxController {
     if (!vendorFormKey!.currentState!.validate()) {
       return null;
     }
-    await createVendorTable().then((value) {
-      Get.back();
-    });
+    await createVendorTable();
   }
 
   Future<void> createVendorTable() async {
-    await vendorDB.create(
+    await vendorDB
+        .create(
       name: name,
       address: address,
       gst: gst,
       mobileNo: int.tryParse(mobileNumber),
-    );
+    )
+        .then((value) async {
+      await vendorDB.fetchAll().then((value) => Get.back());
+    });
   }
 }

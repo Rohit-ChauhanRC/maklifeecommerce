@@ -1,37 +1,48 @@
 import 'package:get/get.dart';
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
-import 'package:maklifeecommerce/app/data/models/product_list_model.dart';
+import 'package:maklifeecommerce/app/data/database/vendor_db.dart';
 import 'package:maklifeecommerce/app/data/models/product_model.dart';
+import 'package:maklifeecommerce/app/data/models/receiving_model.dart';
+import 'package:maklifeecommerce/app/data/models/vendor_model.dart';
 
 class ReceiveProductsController extends GetxController {
   //
 
   final ProductDB productDB = ProductDB();
+  final VendorDB vendorDB = VendorDB();
 
   final RxList<ProductModel> _products = RxList<ProductModel>();
   List<ProductModel> get products => _products;
   set products(List<ProductModel> lt) => _products.assignAll(lt);
 
+  final Rx<ProductModel> _pmodel =
+      Rx(ProductModel(name: "", weight: "", price: ""));
+  ProductModel get pmodel => _pmodel.value;
+  set pmodel(ProductModel m) => _pmodel.value = m;
+
+  final RxList<VendorModel> _vendors = RxList<VendorModel>();
+  List<VendorModel> get vendors => _vendors;
+  set vendors(List<VendorModel> lt) => _vendors.assignAll(lt);
+
+  final Rx<VendorModel> _vendorModel = Rx(VendorModel());
+  VendorModel get vendorModel => _vendorModel.value;
+  set vendorModel(VendorModel v) => _vendorModel.value = v;
+
   final RxInt _id = RxInt(0);
   int get id => _id.value;
   set id(int i) => _id.value = i;
 
-  String? inputProduct = "Select Product";
-  String? inputVendor = "Select Vendor";
+  final RxString _inputProduct = "Select Product".obs;
+  String get inputProduct => _inputProduct.value;
+  set inputProduct(String str) => _inputProduct.value = str;
 
-  List<String> productList = [
-    "Select Product",
-    "Milk",
-    "Paneer",
-    "Dahi",
-  ];
+  final RxString _inputVendor = "Select Vendor".obs;
+  String get inputVendor => _inputVendor.value;
+  set inputVendor(String str) => _inputVendor.value = str;
 
-  List<String> vendorList = [
-    "Select Vendor",
-    "Mak Dairy",
-    "Amul",
-    "Mother Dairy",
-  ];
+  final RxString _vendorId = "".obs;
+  String get vendorId => _vendorId.value;
+  set vendorId(String str) => _vendorId.value = str;
 
   final RxString _quantity = ''.obs;
   String get quantity => _quantity.value;
@@ -45,16 +56,19 @@ class ReceiveProductsController extends GetxController {
   String get totalAmount => _totalAmount.value;
   set totalAmount(String str) => _totalAmount.value = str;
 
-  final RxList<ProductModel> _productListModel =
-      RxList([ProductModel(name: "", quantity: 0, price: 0, weight: "")]);
+  final RxList<ReceivingModel> _productListModel = RxList([ReceivingModel()]);
+  List<ReceivingModel> get productListModel => _productListModel;
+  set productListModel(List<ReceivingModel> pr) => _productListModel.addAll(pr);
 
-  List<ProductModel> get productListModel => _productListModel;
-  set productListModel(List<ProductModel> pr) => _productListModel.addAll(pr);
+  final Rx<DateTime> _receivingDate = Rx<DateTime>(DateTime.now());
+  DateTime get receivingDate => _receivingDate.value;
+  set receivingDate(DateTime ti) => _receivingDate.value = ti;
 
   @override
   void onInit() async {
     super.onInit();
     await fetchProduct();
+    await fetchVendor();
   }
 
   @override
@@ -67,40 +81,52 @@ class ReceiveProductsController extends GetxController {
     super.onClose();
   }
 
+  void setSelected(String value) {
+    _inputVendor.value = value;
+  }
+
+  void setSelectedProduct(String value) {
+    _inputProduct.value = value;
+  }
+
   Future<void> fetchProduct() async {
-    // _products =
-    print("121212");
     products.assignAll(await productDB.fetchAll());
-    // if (kDebugMode) {
-    //   print("${_products.first.name} name");
-    // }
+    pmodel = products[0];
+  }
+
+  Future<void> fetchVendor() async {
+    vendors.assignAll(await vendorDB.fetchAll());
+    vendorModel = vendors[0];
+    vendorId = vendors[0].id.toString();
+    inputVendor = vendors[0].name.toString();
   }
 
   void addProductList(index) {
-    // productDB.update(id: id, quantity: int.tryParse(quantity));
-
-    productListModel.add(ProductModel(
-      name: "",
-      price: 0,
-      weight: "",
-      description: "",
-    ));
+    // print(productListModel[0].productName);
+    // for (var element in productListModel) {
+    //   print(element.productName);
+    // }
+    productListModel.insert(
+        index + 1,
+        ReceivingModel(
+          vendorId: vendorId,
+          invoiceId: invoiceId,
+          receivingDate: receivingDate,
+          totalAmount: totalAmount,
+          vendorName: inputVendor,
+          productId: "",
+          productName: "",
+          productQuantity: "",
+        ));
+    print(productListModel.length);
   }
 
-  void removeProductList(int index, ProductListModel pr) {
-    // productListModel.removeAt(index - 1);
+  void removeProductList(int index, ReceivingModel product) {
     if (productListModel.length > 1) {
-      // productListModel.removeAt(index);
-      // productListModel.retainWhere((element) => element == pr);
-
-      if (productListModel.contains(pr)) {
-        // print(pr.quantity);
-        productListModel.remove(pr);
-        update();
-      }
-
-      // productListModel
-      //     .removeWhere((el) => el.index.toString() == index.toString());
+      // productListModel.remove(product);
+      productListModel.removeWhere((element) =>
+          element.productName == product.productName &&
+          element.productQuantity == product.productQuantity);
     }
   }
 }

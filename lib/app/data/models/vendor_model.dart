@@ -7,14 +7,14 @@ String productModelToMap(VendorModel data) => json.encode(data.toMap());
 
 class VendorModel {
   final int? id;
-  final String name;
+  final String? name;
   final int? mobileNo;
   final String? gst;
   final String? address;
 
   VendorModel({
     this.id,
-    required this.name,
+    this.name,
     this.mobileNo,
     this.gst,
     this.address,

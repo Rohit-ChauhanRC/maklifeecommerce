@@ -36,9 +36,28 @@ class HomeView extends GetView<HomeController> {
       ),
       drawer: AppDrawer(),
       body: Column(children: [
-        SizedBox(height: Get.height / 2, child: GridWidget()),
+        Obx(() => controller.products.length > 1
+            ? SizedBox(
+                height: Get.height / 2.01,
+                child: GridWidget(
+                  product: controller.products,
+                ),
+              )
+            : SizedBox(
+                height: Get.height / 2.01,
+                child: Center(
+                  child: Text(
+                    "No data found!...",
+                    style: TextStyle(
+                      color: AppColors.brownColor,
+                      fontSize: AppDimens.font24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )),
         Container(
-          height: Get.height / 3,
+          height: Get.height / 3.01,
           // color: Colors.black,
           decoration: BoxDecoration(
             border: Border.all(

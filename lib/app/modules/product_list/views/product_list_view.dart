@@ -21,11 +21,11 @@ class ProductListView extends GetView<ProductListController> {
         margin: const EdgeInsets.all(20),
         height: Get.height,
         width: Get.width,
-        child: Obx(() => controller.products.length > 1
+        child: Obx(() => controller.homeController.products.length > 1
             ? ListView.builder(
-                itemCount: controller.products.length,
+                itemCount: controller.homeController.products.length,
                 itemBuilder: (ctx, i) {
-                  ProductModel product = controller.products[i];
+                  ProductModel product = controller.homeController.products[i];
                   return ProductListItem(product: product);
                 })
             : SizedBox(

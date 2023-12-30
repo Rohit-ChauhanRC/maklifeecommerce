@@ -53,21 +53,28 @@ class EditProductItemView extends GetView<EditProductItemController> {
                     ),
                     Obx(() => TextFormWidget(
                           label: "Please enter price...",
-                          onChanged: (val) =>
-                              controller.price = int.tryParse(val)!,
+                          onChanged: (val) => controller.price = val!,
                           initialValue: controller.price.toString(),
                         )),
                     const SizedBox(
                       height: 20,
                     ),
                     Obx(() => TextFormWidget(
-                          label: "Please enter description...",
-                          onChanged: (val) => controller.decription = val,
-                          initialValue: controller.decription,
+                          label: "Please enter quantity...",
+                          onChanged: (val) => controller.quantity = val!,
+                          initialValue: controller.quantity.toString(),
                         )),
                     const SizedBox(
                       height: 20,
                     ),
+                    // Obx(() => TextFormWidget(
+                    //       label: "Please enter description...",
+                    //       onChanged: (val) => controller.description = val,
+                    //       initialValue: controller.description,
+                    //     )),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
