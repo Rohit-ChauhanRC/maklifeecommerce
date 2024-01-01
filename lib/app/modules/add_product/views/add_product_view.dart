@@ -35,6 +35,7 @@ class AddProductView extends GetView<AddProductController> {
               TextFormWidget(
                 label: "Please enter name...",
                 onChanged: (val) => controller.name = val,
+                validator: (v) => v!.isEmpty ? "Field is required!" : null,
               ),
               const SizedBox(
                 height: 20,
@@ -42,6 +43,7 @@ class AddProductView extends GetView<AddProductController> {
               TextFormWidget(
                 label: "Please enter product weight...",
                 onChanged: (val) => controller.weight = val,
+                validator: (v) => v!.isEmpty ? "Field is required!" : null,
               ),
               const SizedBox(
                 height: 20,
@@ -49,6 +51,7 @@ class AddProductView extends GetView<AddProductController> {
               TextFormWidget(
                 label: "Please enter price...",
                 onChanged: (val) => controller.price = val,
+                validator: (v) => v!.isEmpty ? "Field is required!" : null,
               ),
               const SizedBox(
                 height: 20,
@@ -64,10 +67,10 @@ class AddProductView extends GetView<AddProductController> {
                 onPressed: () {
                   controller.checkValidate();
                 },
-                child: Text("Add"),
                 style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
                     backgroundColor:
                         MaterialStatePropertyAll(AppColors.brownColor)),
+                child: const Text("Add"),
               )
             ],
           ),

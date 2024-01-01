@@ -36,7 +36,7 @@ class HomeView extends GetView<HomeController> {
       ),
       drawer: AppDrawer(),
       body: Column(children: [
-        Obx(() => controller.products.length > 1
+        Obx(() => controller.products.isNotEmpty
             ? SizedBox(
                 height: Get.height / 2.01,
                 child: GridWidget(

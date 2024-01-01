@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
-import 'package:maklifeecommerce/app/data/models/product_model.dart';
 import 'package:maklifeecommerce/app/modules/home/controllers/home_controller.dart';
 import 'package:maklifeecommerce/app/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -124,9 +123,9 @@ class EditProductItemController extends GetxController {
 
   Future<void> fetchProductById() async {
     await productDB.fetchById(Get.arguments!).then((value) {
-      name = value.name;
-      weight = value.weight;
-      price = value.price;
+      name = value.name.toString();
+      weight = value.weight.toString();
+      price = value.price.toString();
       quantity = value.quantity!;
       description = value.description.toString();
       imageLocal = value.picture!;

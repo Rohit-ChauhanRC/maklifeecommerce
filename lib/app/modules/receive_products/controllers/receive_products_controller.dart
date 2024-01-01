@@ -1,15 +1,20 @@
 import 'package:get/get.dart';
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
+import 'package:maklifeecommerce/app/data/database/receiving_db.dart';
 import 'package:maklifeecommerce/app/data/database/vendor_db.dart';
 import 'package:maklifeecommerce/app/data/models/product_model.dart';
 import 'package:maklifeecommerce/app/data/models/receiving_model.dart';
 import 'package:maklifeecommerce/app/data/models/vendor_model.dart';
+import 'package:flutter/material.dart';
 
 class ReceiveProductsController extends GetxController {
   //
 
   final ProductDB productDB = ProductDB();
   final VendorDB vendorDB = VendorDB();
+  final ReceivingDB receivingDB = ReceivingDB();
+
+  GlobalKey<FormState>? receiveFormKey = GlobalKey<FormState>();
 
   final RxList<ProductModel> _products = RxList<ProductModel>();
   List<ProductModel> get products => _products;
@@ -60,15 +65,16 @@ class ReceiveProductsController extends GetxController {
   List<ReceivingModel> get productListModel => _productListModel;
   set productListModel(List<ReceivingModel> pr) => _productListModel.addAll(pr);
 
-  final Rx<DateTime> _receivingDate = Rx<DateTime>(DateTime.now());
-  DateTime get receivingDate => _receivingDate.value;
-  set receivingDate(DateTime ti) => _receivingDate.value = ti;
+  final Rx<String> _receivingDate = Rx<String>("");
+  String get receivingDate => _receivingDate.value;
+  set receivingDate(String ti) => _receivingDate.value = ti;
 
   @override
   void onInit() async {
     super.onInit();
     await fetchProduct();
     await fetchVendor();
+    // await fetchAll();
   }
 
   @override
@@ -91,21 +97,19 @@ class ReceiveProductsController extends GetxController {
 
   Future<void> fetchProduct() async {
     products.assignAll(await productDB.fetchAll());
-    pmodel = products[0];
+    if (products.isNotEmpty) pmodel = products[0];
   }
 
   Future<void> fetchVendor() async {
     vendors.assignAll(await vendorDB.fetchAll());
-    vendorModel = vendors[0];
-    vendorId = vendors[0].id.toString();
-    inputVendor = vendors[0].name.toString();
+    if (vendors.isNotEmpty) {
+      vendorModel = vendors[0];
+      vendorId = vendors[0].id.toString();
+      inputVendor = vendors[0].name.toString();
+    }
   }
 
   void addProductList(index) {
-    // print(productListModel[0].productName);
-    // for (var element in productListModel) {
-    //   print(element.productName);
-    // }
     productListModel.insert(
         index + 1,
         ReceivingModel(
@@ -118,15 +122,35 @@ class ReceiveProductsController extends GetxController {
           productName: "",
           productQuantity: "",
         ));
-    print(productListModel.length);
   }
 
   void removeProductList(int index, ReceivingModel product) {
     if (productListModel.length > 1) {
-      // productListModel.remove(product);
-      productListModel.removeWhere((element) =>
-          element.productName == product.productName &&
-          element.productQuantity == product.productQuantity);
+      productListModel.removeAt(index);
     }
+  }
+
+  onSumit() async {
+    if (!receiveFormKey!.currentState!.validate()) {
+      return null;
+    }
+    productListModel.forEach((c) async {
+      await receivingDB.create(
+          vendorName: c.vendorName.toString(),
+          totalAmount: c.totalAmount.toString(),
+          productName: c.productName.toString(),
+          invoiceId: c.invoiceId,
+          productId: c.productId,
+          productQuantity: c.productQuantity,
+          receivingDate: c.receivingDate,
+          vendorId: c.vendorId);
+    });
+    Get.back();
+
+    // print(receivingDate);
+  }
+
+  fetchAll() async {
+    await receivingDB.fetchAll();
   }
 }

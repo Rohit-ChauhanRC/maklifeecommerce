@@ -9,18 +9,18 @@ String productModelToMap(ProductModel data) => json.encode(data.toMap());
 
 class ProductModel {
   final int? id;
-  final String name;
-  final String weight;
-  final String price;
+  final String? name;
+  final String? weight;
+  final String? price;
   final String? quantity;
   final String? description;
   final Uint8List? picture;
 
   ProductModel({
     this.id,
-    required this.name,
-    required this.weight,
-    required this.price,
+    this.name,
+    this.weight,
+    this.price,
     this.quantity,
     this.description,
     this.picture,

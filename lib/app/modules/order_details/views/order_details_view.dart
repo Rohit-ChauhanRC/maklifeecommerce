@@ -12,7 +12,7 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('OrderDetailsView'),
+        title: const Text('Order Details'),
         centerTitle: true,
       ),
       body: Align(
@@ -46,7 +46,7 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
                     ),
                   ),
                   Text(
-                    "wbbsxh56667",
+                    controller.receive.invoiceId ?? "",
                     style: TextStyle(
                       fontSize: AppDimens.font22,
                       color: AppColors.brownColor,
@@ -69,7 +69,7 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
                     ),
                   ),
                   Text(
-                    "12/12/23",
+                    controller.receive.receivingDate ?? "",
                     style: TextStyle(
                       fontSize: AppDimens.font22,
                       color: AppColors.brownColor,
@@ -85,14 +85,37 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Vendor",
+                    "Vendor:",
                     style: TextStyle(
                       fontSize: AppDimens.font22,
                       color: AppColors.reddishColor,
                     ),
                   ),
                   Text(
-                    "Mak Dairy",
+                    controller.receive.vendorName ?? "",
+                    style: TextStyle(
+                      fontSize: AppDimens.font22,
+                      color: AppColors.brownColor,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Total amount:",
+                    style: TextStyle(
+                      fontSize: AppDimens.font22,
+                      color: AppColors.reddishColor,
+                    ),
+                  ),
+                  Text(
+                    controller.receive.totalAmount ?? "",
                     style: TextStyle(
                       fontSize: AppDimens.font22,
                       color: AppColors.brownColor,
@@ -117,98 +140,94 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
                 height: 20,
               ),
               SizedBox(
-                height: Get.height / 1.8,
+                height: Get.height / 2,
                 // color: AppColors.brownColor,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 2,
-                  itemBuilder: (ctx, index) {
-                    return Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColors.blackColor,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        color: AppColors.bgColor,
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Product:",
-                                style: TextStyle(
-                                  fontSize: AppDimens.font18,
-                                  color: AppColors.reddishColor,
-                                ),
+                child: Obx(() => controller.receiveProduct.isNotEmpty
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.receiveProduct.length,
+                        itemBuilder: (ctx, index) {
+                          final data = controller.receiveProduct[index];
+
+                          return Container(
+                            height: 200,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: AppColors.blackColor,
                               ),
-                              Text(
-                                "wbbsxh56667",
-                                style: TextStyle(
-                                  fontSize: AppDimens.font18,
-                                  color: AppColors.brownColor,
+                              borderRadius: BorderRadius.circular(20),
+                              color: AppColors.bgColor,
+                            ),
+                            padding: const EdgeInsets.all(10),
+                            margin: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Product:",
+                                      style: TextStyle(
+                                        fontSize: AppDimens.font18,
+                                        color: AppColors.reddishColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      data.productName ?? "",
+                                      style: TextStyle(
+                                        fontSize: AppDimens.font18,
+                                        color: AppColors.brownColor,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Quantity:",
+                                      style: TextStyle(
+                                        fontSize: AppDimens.font18,
+                                        color: AppColors.reddishColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      data.productQuantity ?? "0",
+                                      style: TextStyle(
+                                        fontSize: AppDimens.font18,
+                                        color: AppColors.brownColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      )
+                    : SizedBox(
+                        child: Center(
+                            child: Text(
+                          "No data found...",
+                          style: TextStyle(
+                            color: AppColors.brownColor,
+                            fontSize: AppDimens.font30,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Quantity:",
-                                style: TextStyle(
-                                  fontSize: AppDimens.font18,
-                                  color: AppColors.reddishColor,
-                                ),
-                              ),
-                              Text(
-                                "12/12/23",
-                                style: TextStyle(
-                                  fontSize: AppDimens.font18,
-                                  color: AppColors.brownColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Total Price:",
-                                style: TextStyle(
-                                  fontSize: AppDimens.font18,
-                                  color: AppColors.reddishColor,
-                                ),
-                              ),
-                              Text(
-                                "Mak Dairy",
-                                style: TextStyle(
-                                  fontSize: AppDimens.font18,
-                                  color: AppColors.brownColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        )),
+                      )),
               ),
             ],
           ),

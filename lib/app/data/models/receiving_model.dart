@@ -9,7 +9,7 @@ class ReceivingModel {
   String? productName;
   String? productId;
   String? productQuantity;
-  DateTime? receivingDate;
+  String? receivingDate;
   ProductModel? productModel;
   ReceivingModel({
     this.id,
@@ -32,9 +32,9 @@ class ReceivingModel {
         productName: json["productName"] ?? "",
         productId: json["productId"] ?? "",
         totalAmount: json["totalAmount"] ?? "",
-        productQuantity: json["productQuantity"] ?? "",
+        productQuantity: json["productQuantity"].toString() ?? "",
         receivingDate: json["receivingDate"] ?? "",
-        productModel: json["productModel"] ?? "",
+        productModel: json["productModel"] ?? ProductModel(),
       );
 
   Map<String, dynamic> toMap() => {

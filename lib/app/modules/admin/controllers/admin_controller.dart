@@ -6,13 +6,6 @@ class AdminController extends GetxController {
   //
   final List gridList = [
     {
-      "icon": Icons.receipt_long_rounded,
-      "title": "Receive products",
-      "onTap": () {
-        Get.toNamed(Routes.RECEIVE_PRODUCTS);
-      },
-    },
-    {
       "icon": Icons.manage_accounts_outlined,
       "title": "Add products",
       "onTap": () {
@@ -20,24 +13,10 @@ class AdminController extends GetxController {
       },
     },
     {
-      "icon": Icons.shopping_cart_rounded,
-      "title": "Total Orders",
-      "onTap": () {
-        Get.toNamed(Routes.TOTAL_ORDERS);
-      },
-    },
-    {
       "icon": Icons.local_shipping_rounded,
       "title": "Add Vendor",
       "onTap": () {
         Get.toNamed(Routes.ADD_VENDOR);
-      },
-    },
-    {
-      "icon": Icons.restore,
-      "title": "Restore Data",
-      "onTap": () {
-        Get.toNamed(Routes.RESTORE_DATA);
       },
     },
     {
@@ -53,10 +32,37 @@ class AdminController extends GetxController {
       "onTap": () {
         Get.toNamed(Routes.VENDOR_LIST);
       },
-    }
+    },
+    {
+      "icon": Icons.receipt_long_rounded,
+      "title": "Receive products",
+      "onTap": () {
+        Get.toNamed(Routes.RECEIVE_PRODUCTS);
+      },
+    },
+    {
+      "icon": Icons.shopping_cart_rounded,
+      "title": "Total Order",
+      "onTap": () {
+        Get.toNamed(Routes.TOTAL_ORDERS);
+      },
+    },
+    {
+      "icon": Icons.list,
+      "title": "Customer Billing List",
+      "onTap": () {
+        // Get.toNamed(Routes.TOTAL_ORDERS);
+      },
+    },
+    {
+      "icon": Icons.restore,
+      "title": "Restore Data",
+      "onTap": () {
+        Get.toNamed(Routes.RESTORE_DATA);
+      },
+    },
   ];
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -71,6 +77,4 @@ class AdminController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

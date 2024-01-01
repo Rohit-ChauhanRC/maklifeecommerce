@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:maklifeecommerce/app/data/models/product_model.dart';
 
 import 'card_widget.dart';
@@ -23,11 +22,11 @@ class GridWidget extends StatelessWidget {
           var grid = product[i];
           return CardWidget(
             picture: grid.picture,
-            title: grid.name,
+            title: grid.name.toString(),
             onTap: () {},
             quantity: grid.quantity!,
-            volume: grid.weight,
-            price: grid.price,
+            volume: grid.weight.toString(),
+            price: grid.price.toString(),
           );
         });
   }

@@ -14,7 +14,7 @@ class ReceivingDB {
     "vendorName" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
     "totalAmount" TEXT NOT NULL,
-    "receivingDate" TEXT NOT NULL,
+    "receivingDate" INTEGER DEFAULT (cast(strftime('%s','now') as int)),
     "productName" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
     "productQuantity" INTEGER,
@@ -24,10 +24,10 @@ class ReceivingDB {
   }
 
   Future<int> create({
-    required String vendorName,
-    required String totalAmount,
+    String? vendorName,
+    String? totalAmount,
     String? receivingDate,
-    required String productName,
+    String? productName,
     String? invoiceId,
     String? vendorId,
     String? productId,
@@ -68,6 +68,15 @@ class ReceivingDB {
       
       ''', [id]);
     return ReceivingModel.fromMap(product.first);
+  }
+
+  Future<Iterable<ReceivingModel>> fetchByInvoiceId(String id) async {
+    final database = await DataBaseService().database;
+    final product = await database.rawQuery('''
+        SELECT * from $tableName WHERE invoiceId = ? 
+      
+      ''', [id]);
+    return product.map((e) => ReceivingModel.fromMap(e));
   }
 
   Future<int> update({

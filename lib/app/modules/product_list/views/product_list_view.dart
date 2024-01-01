@@ -21,7 +21,7 @@ class ProductListView extends GetView<ProductListController> {
         margin: const EdgeInsets.all(20),
         height: Get.height,
         width: Get.width,
-        child: Obx(() => controller.homeController.products.length > 1
+        child: Obx(() => controller.homeController.products.isNotEmpty
             ? ListView.builder(
                 itemCount: controller.homeController.products.length,
                 itemBuilder: (ctx, i) {

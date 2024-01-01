@@ -73,7 +73,9 @@ class AddProductController extends GetxController {
     if (!productsFormKey!.currentState!.validate()) {
       return null;
     }
-    await createproductTable();
+    if (personPic.path.isNotEmpty) {
+      await createproductTable();
+    }
   }
 
   Future<void> createproductTable() async {

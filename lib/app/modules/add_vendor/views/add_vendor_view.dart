@@ -24,6 +24,7 @@ class AddVendorView extends GetView<AddVendorController> {
               TextFormWidget(
                 label: "Please enter Vendor Name...",
                 onChanged: (val) => controller.name = val,
+                validator: (val) => val!.isEmpty ? "Field is required!" : null,
               ),
               const SizedBox(
                 height: 20,
@@ -31,6 +32,7 @@ class AddVendorView extends GetView<AddVendorController> {
               TextFormWidget(
                 label: "Please enter Vendor Mobile No...",
                 onChanged: (val) => controller.mobileNumber = val,
+                validator: (val) => val!.isEmpty ? "Field is required!" : null,
               ),
               const SizedBox(
                 height: 20,
@@ -38,6 +40,7 @@ class AddVendorView extends GetView<AddVendorController> {
               TextFormWidget(
                 label: "Please enter Vendor GSTIN No...",
                 onChanged: (val) => controller.gst = val,
+                validator: (val) => val!.isEmpty ? "Field is required!" : null,
               ),
               const SizedBox(
                 height: 20,
@@ -45,6 +48,7 @@ class AddVendorView extends GetView<AddVendorController> {
               TextFormWidget(
                 label: "Please enter Vendor Address...",
                 onChanged: (val) => controller.address = val,
+                validator: (val) => val!.isEmpty ? "Field is required!" : null,
               ),
               const SizedBox(
                 height: 20,
