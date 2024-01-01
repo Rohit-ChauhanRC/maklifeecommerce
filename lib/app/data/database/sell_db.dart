@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 class SellDB {
   //
-  final tableName = 'vendor';
+  final tableName = 'sell';
 
   Future<void> createTable(Database database) async {
     await database.execute("""

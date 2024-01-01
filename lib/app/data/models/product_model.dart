@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 ProductModel productModelFromMap(String str) =>
@@ -15,6 +14,7 @@ class ProductModel {
   final String? quantity;
   final String? description;
   final Uint8List? picture;
+  final int? count;
 
   ProductModel({
     this.id,
@@ -24,6 +24,7 @@ class ProductModel {
     this.quantity,
     this.description,
     this.picture,
+    this.count,
   });
 
   factory ProductModel.fromMap(Map<String, dynamic> json) => ProductModel(
@@ -34,6 +35,7 @@ class ProductModel {
         quantity: json["quantity"] ?? "",
         description: json["description"] ?? "",
         picture: json["picture"] ?? "",
+        count: json["count"] ?? 0,
       );
 
   Map<String, dynamic> toMap() => {
@@ -44,5 +46,6 @@ class ProductModel {
         "quantity": quantity,
         "description": description,
         "picture": picture,
+        "count": count,
       };
 }

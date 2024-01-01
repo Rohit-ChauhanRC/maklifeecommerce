@@ -17,6 +17,7 @@ class ProductDB {
     "quantity" TEXT,
     "description" TEXT,
     "picture" BLOB,
+    "count" INTEGER,
     PRIMARY KEY("id" AUTOINCREMENT)
   );
 """);
@@ -29,13 +30,14 @@ class ProductDB {
     String? quantity,
     String? description,
     Uint8List? picture,
+    int? count,
   }) async {
     final database = await DataBaseService().database;
     return await database.rawInsert(
       '''
-        INSERT INTO $tableName (name,weight,price,quantity,description, picture) VALUES (?,?,?,?,?,?)
+        INSERT INTO $tableName (name,weight,price,quantity,description, picture,count) VALUES (?,?,?,?,?,?,?)
       ''',
-      [name, weight, price, quantity, description, picture],
+      [name, weight, price, quantity, description, picture, count],
     );
   }
 
@@ -66,6 +68,7 @@ class ProductDB {
     String? quantity,
     String? description,
     Uint8List? picture,
+    int? count,
   }) async {
     final database = await DataBaseService().database;
     return await database.update(
@@ -77,6 +80,7 @@ class ProductDB {
         if (quantity != null) 'quantity': quantity,
         if (description != null) 'description': description,
         if (picture != null) 'picture': picture,
+        if (count != null) 'count': count,
       },
       where: 'id = ?',
       conflictAlgorithm: ConflictAlgorithm.rollback,
