@@ -41,6 +41,8 @@ class HomeView extends GetView<HomeController> {
                 height: Get.height / 2.01,
                 child: GridWidget(
                   product: controller.products,
+                  orders: controller.orders,
+                  total: controller.totalAmountCal,
                 ),
               )
             : SizedBox(
@@ -97,78 +99,149 @@ class HomeView extends GetView<HomeController> {
                   children: [
                     SizedBox(
                       height: Get.height / 5,
-                      child: ListView.builder(
-                        itemCount: 10,
-                        itemBuilder: (ctx, i) {
-                          return Container(
-                            margin: const EdgeInsets.only(
-                              top: 20,
-                              left: 20,
-                              right: 20,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: Get.width / 6,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Icon(
-                                        Icons.remove_circle_outline,
-                                        color: AppColors.reddishColor,
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      Text(
-                                        " ${i + 1}",
-                                        style: TextStyle(
-                                          fontSize: AppDimens.font24,
-                                          color: AppColors.brownColor,
-                                          fontWeight: FontWeight.bold,
+                      child: Obx(() => controller.orders.isNotEmpty
+                          ? ListView.builder(
+                              itemCount:
+                                  controller.orders.toSet().toList().length,
+                              itemBuilder: (ctx, i) {
+                                final data =
+                                    controller.orders.toSet().toList()[i];
+
+                                return Obx(() => controller.orders
+                                            .toSet()
+                                            .toList()[i]
+                                            .count! >=
+                                        1
+                                    ? Container(
+                                        margin: const EdgeInsets.only(
+                                          top: 20,
+                                          left: 20,
+                                          right: 20,
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      Icon(
-                                        Icons.add_circle_outlined,
-                                        color: AppColors.brownColor,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: Get.width / 2.7,
-                                  child: Text(
-                                    "Product${i + 1}",
-                                    overflow: TextOverflow.visible,
-                                    style: TextStyle(
-                                      fontSize: AppDimens.font24,
-                                      color: AppColors.brownColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: Get.width / 6,
-                                  child: Text(
-                                    "₹${100 * i}",
-                                    style: TextStyle(
-                                      fontSize: AppDimens.font24,
-                                      color: AppColors.brownColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: Get.width / 6,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {
+                                                      if (controller.orders
+                                                              .toSet()
+                                                              .toList()[i]
+                                                              .count! >=
+                                                          1) {
+                                                        controller.orders
+                                                            .toSet()
+                                                            .toList()[i]
+                                                            .count = controller
+                                                                .orders
+                                                                .toSet()
+                                                                .toList()[i]
+                                                                .count! -
+                                                            1;
+                                                        controller.orders.add(
+                                                            controller.orders
+                                                                .toSet()
+                                                                .toList()[i]);
+                                                        controller
+                                                            .totalAmountCal();
+                                                      }
+                                                    },
+                                                    child: Icon(
+                                                      Icons
+                                                          .remove_circle_outline,
+                                                      color: AppColors
+                                                          .reddishColor,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    " ${controller.orders.toSet().toList()[i].count}",
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          AppDimens.font24,
+                                                      color:
+                                                          AppColors.brownColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      if (controller.orders
+                                                              .toSet()
+                                                              .toList()[i]
+                                                              .count! >=
+                                                          1) {
+                                                        controller.orders
+                                                            .toSet()
+                                                            .toList()[i]
+                                                            .count = controller
+                                                                .orders
+                                                                .toSet()
+                                                                .toList()[i]
+                                                                .count! +
+                                                            1;
+                                                        controller.orders.add(
+                                                            controller.orders
+                                                                .toSet()
+                                                                .toList()[i]);
+                                                        controller
+                                                            .totalAmountCal();
+                                                      }
+                                                    },
+                                                    child: Icon(
+                                                      Icons.add_circle_outlined,
+                                                      color:
+                                                          AppColors.brownColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: Get.width / 2.7,
+                                              child: Text(
+                                                "${data.name}",
+                                                overflow: TextOverflow.visible,
+                                                style: TextStyle(
+                                                  fontSize: AppDimens.font24,
+                                                  color: AppColors.brownColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: Get.width / 6,
+                                              child: Text(
+                                                "₹${int.tryParse(data.price!)! * data.count!}",
+                                                style: TextStyle(
+                                                  fontSize: AppDimens.font24,
+                                                  color: AppColors.brownColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : const SizedBox());
+                              },
+                            )
+                          : const SizedBox()),
                     ),
                     Container(
                       // color: Colors.blue,
@@ -192,14 +265,23 @@ class HomeView extends GetView<HomeController> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            "₹5000/-",
-                            style: TextStyle(
-                              fontSize: AppDimens.font24,
-                              color: AppColors.brownColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          Obx(() => controller.totalAmount != 0.0
+                              ? Text(
+                                  controller.totalAmount.toString(),
+                                  style: TextStyle(
+                                    fontSize: AppDimens.font24,
+                                    color: AppColors.brownColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              : Text(
+                                  "0.0",
+                                  style: TextStyle(
+                                    fontSize: AppDimens.font24,
+                                    color: AppColors.brownColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
                         ],
                       ),
                     ),

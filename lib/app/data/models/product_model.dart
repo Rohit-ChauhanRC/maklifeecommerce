@@ -14,7 +14,7 @@ class ProductModel {
   final String? quantity;
   final String? description;
   final Uint8List? picture;
-  final int? count;
+  late int? count;
 
   ProductModel({
     this.id,

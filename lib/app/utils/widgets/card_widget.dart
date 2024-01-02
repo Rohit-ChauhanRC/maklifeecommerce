@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
 import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
 
