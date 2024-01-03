@@ -11,7 +11,7 @@ class ProductModel {
   final String? name;
   final String? weight;
   final String? price;
-  final String? quantity;
+  late String? quantity;
   final String? description;
   final Uint8List? picture;
   late int? count;

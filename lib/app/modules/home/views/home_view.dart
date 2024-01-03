@@ -182,10 +182,22 @@ class HomeView extends GetView<HomeController> {
                                                   InkWell(
                                                     onTap: () {
                                                       if (controller.orders
-                                                              .toSet()
-                                                              .toList()[i]
-                                                              .count! >=
-                                                          1) {
+                                                                  .toSet()
+                                                                  .toList()[i]
+                                                                  .count! >=
+                                                              1 &&
+                                                          controller.orders
+                                                                  .toSet()
+                                                                  .toList()[i]
+                                                                  .count! <
+                                                              int.tryParse(
+                                                                  controller
+                                                                      .orders
+                                                                      .toSet()
+                                                                      .toList()[
+                                                                          i]
+                                                                      .quantity
+                                                                      .toString())!) {
                                                         controller.orders
                                                             .toSet()
                                                             .toList()[i]
@@ -295,7 +307,9 @@ class HomeView extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await controller.onSave();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.brownColor,
               ),

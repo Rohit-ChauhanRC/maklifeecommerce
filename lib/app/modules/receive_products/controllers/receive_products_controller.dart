@@ -144,6 +144,9 @@ class ReceiveProductsController extends GetxController {
           productQuantity: c.productQuantity,
           receivingDate: c.receivingDate,
           vendorId: c.vendorId);
+
+      await productDB.update(
+          id: int.tryParse(c.productId!)!, quantity: c.productQuantity);
     });
     Get.back();
 

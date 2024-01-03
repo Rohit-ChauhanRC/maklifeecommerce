@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
+import 'package:maklifeecommerce/app/data/database/sell_db.dart';
 import 'package:maklifeecommerce/app/data/models/product_model.dart';
 
 class HomeController extends GetxController {
   //
 
   final ProductDB productDB = ProductDB();
+  final SellDB sellDB = SellDB();
 
   final RxList<ProductModel> _products = RxList<ProductModel>();
   List<ProductModel> get products => _products;
@@ -28,6 +30,9 @@ class HomeController extends GetxController {
   void onInit() async {
     super.onInit();
     await fetchProduct();
+    await sellDB.fetchAll().then((value) {
+      value.map((e) => print(e.productName!));
+    });
   }
 
   @override
@@ -62,5 +67,29 @@ class HomeController extends GetxController {
       }
     }
     return totalAmount;
+  }
+
+  onSave() async {
+    orders.forEach((e) async {
+      await sellDB.create(
+        productName: e.name!,
+        productWeight: e.weight!,
+        price: e.price!,
+        productId: e.id.toString(),
+        productQuantity: e.count.toString(),
+        receivingDate: DateTime.now().toIso8601String(),
+      );
+      orders.assignAll([]);
+
+      products.map((el) async {
+        if (el.id == e.id) {
+          await productDB.update(
+              id: e.id!,
+              quantity:
+                  "${int.tryParse(el.quantity!)! - int.tryParse(e.quantity!)!}");
+        }
+      });
+    });
+    await fetchProduct();
   }
 }
