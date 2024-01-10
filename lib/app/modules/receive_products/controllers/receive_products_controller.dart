@@ -6,13 +6,16 @@ import 'package:maklifeecommerce/app/data/models/product_model.dart';
 import 'package:maklifeecommerce/app/data/models/receiving_model.dart';
 import 'package:maklifeecommerce/app/data/models/vendor_model.dart';
 import 'package:flutter/material.dart';
+import 'package:maklifeecommerce/app/modules/home/controllers/home_controller.dart';
 
 class ReceiveProductsController extends GetxController {
   //
 
-  final ProductDB productDB = ProductDB();
+  // final ProductDB productDB = ProductDB();
   final VendorDB vendorDB = VendorDB();
   final ReceivingDB receivingDB = ReceivingDB();
+
+  final HomeController homeController = Get.find();
 
   GlobalKey<FormState>? receiveFormKey = GlobalKey<FormState>();
 
@@ -96,7 +99,7 @@ class ReceiveProductsController extends GetxController {
   }
 
   Future<void> fetchProduct() async {
-    products.assignAll(await productDB.fetchAll());
+    products.assignAll(await homeController.productDB.fetchAll());
     if (products.isNotEmpty) pmodel = products[0];
   }
 
@@ -130,10 +133,10 @@ class ReceiveProductsController extends GetxController {
     }
   }
 
-  onSumit() async {
-    if (!receiveFormKey!.currentState!.validate()) {
-      return null;
-    }
+  Future onSumit() async {
+    // if (!receiveFormKey!.currentState!.validate()) {
+    //   return null;
+    // }
     productListModel.forEach((c) async {
       await receivingDB.create(
           vendorName: c.vendorName.toString(),
@@ -145,10 +148,11 @@ class ReceiveProductsController extends GetxController {
           receivingDate: c.receivingDate,
           vendorId: c.vendorId);
 
-      await productDB.update(
-          id: int.tryParse(c.productId!)!, quantity: c.productQuantity);
+      await homeController.productDB
+          .update(id: int.tryParse(c.productId!)!, quantity: c.productQuantity);
     });
-    Get.back();
+    homeController.products
+        .assignAll(await homeController.productDB.fetchAll());
 
     // print(receivingDate);
   }

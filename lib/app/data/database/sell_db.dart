@@ -10,6 +10,7 @@ class SellDB {
     await database.execute("""
   CREATE TABLE IF NOT EXISTS $tableName (
     "id" INTEGER NOT NULL,
+    "invoiceId" TEXT NOT NULL,
     "productName" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
     "productWeight" TEXT ,
@@ -28,11 +29,12 @@ class SellDB {
     String? productQuantity,
     String? receivingDate,
     String? productId,
+    String? invoiceId,
   }) async {
     final database = await DataBaseService().database;
     return await database.rawInsert(
       '''
-        INSERT INTO $tableName (productName,productId,productWeight,price,productQuantity, productQuantity) VALUES (?,?,?,?,?,?)
+        INSERT INTO $tableName (productName,productId,productWeight,price,productQuantity, productQuantity,invoiceId) VALUES (?,?,?,?,?,?,?)
       ''',
       [
         productName,
@@ -40,7 +42,8 @@ class SellDB {
         productWeight,
         price,
         productQuantity,
-        receivingDate
+        receivingDate,
+        invoiceId
       ],
     );
   }
@@ -63,6 +66,15 @@ class SellDB {
     return SellModel.fromMap(product.first);
   }
 
+  Future<Iterable<SellModel>> fetchByInvoiceId(String id) async {
+    final database = await DataBaseService().database;
+    final products = await database.rawQuery('''
+        SELECT * from $tableName WHERE invoiceId = ? 
+      
+      ''', [id]);
+    return products.map((e) => SellModel.fromMap(e)).toList();
+  }
+
   Future<int> update({
     required int id,
     String? productName,
@@ -71,6 +83,7 @@ class SellDB {
     String? price,
     String? productQuantity,
     String? receivingDate,
+    String? invoiceId,
   }) async {
     final database = await DataBaseService().database;
     return await database.update(
@@ -82,6 +95,7 @@ class SellDB {
         if (productWeight != null) 'productWeight': productWeight,
         if (productQuantity != null) 'productQuantity': productQuantity,
         if (receivingDate != null) 'receivingDate': receivingDate,
+        if (invoiceId != null) 'invoiceId': invoiceId,
       },
       where: 'id = ?',
       conflictAlgorithm: ConflictAlgorithm.rollback,

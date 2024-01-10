@@ -18,6 +18,7 @@ dependencies:
   dropdown_textfield: ^1.0.8
   datetime_picker_formfield_new: ^2.1.0
   path: ^1.8.3
+  get_storage: ^2.1.1
 
   flutter:
     sdk: flutter

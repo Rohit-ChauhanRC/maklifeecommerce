@@ -189,7 +189,7 @@ class HomeView extends GetView<HomeController> {
                                                           controller.orders
                                                                   .toSet()
                                                                   .toList()[i]
-                                                                  .count! <
+                                                                  .count! <=
                                                               int.tryParse(
                                                                   controller
                                                                       .orders

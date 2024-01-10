@@ -51,7 +51,7 @@ class AdminController extends GetxController {
       "icon": Icons.list,
       "title": "Customer Billing List",
       "onTap": () {
-        // Get.toNamed(Routes.TOTAL_ORDERS);
+        Get.toNamed(Routes.CUTOMER_BILLING_LIST);
       },
     },
     {

@@ -6,6 +6,10 @@ import '../modules/add_vendor/bindings/add_vendor_binding.dart';
 import '../modules/add_vendor/views/add_vendor_view.dart';
 import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
+import '../modules/cutomer_billing_detils/bindings/cutomer_billing_detils_binding.dart';
+import '../modules/cutomer_billing_detils/views/cutomer_billing_detils_view.dart';
+import '../modules/cutomer_billing_list/bindings/cutomer_billing_list_binding.dart';
+import '../modules/cutomer_billing_list/views/cutomer_billing_list_view.dart';
 import '../modules/edit_product_item/bindings/edit_product_item_binding.dart';
 import '../modules/edit_product_item/views/edit_product_item_view.dart';
 import '../modules/edit_vendor/bindings/edit_vendor_binding.dart';
@@ -120,6 +124,16 @@ class AppPages {
       name: _Paths.EDIT_VENDOR,
       page: () => const EditVendorView(),
       binding: EditVendorBinding(),
+    ),
+    GetPage(
+      name: _Paths.CUTOMER_BILLING_LIST,
+      page: () => const CutomerBillingListView(),
+      binding: CutomerBillingListBinding(),
+    ),
+    GetPage(
+      name: _Paths.CUTOMER_BILLING_DETILS,
+      page: () => const CutomerBillingDetilsView(),
+      binding: CutomerBillingDetilsBinding(),
     ),
   ];
 }

@@ -22,6 +22,7 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
         centerTitle: true,
       ),
       body: Container(
+        height: Get.height,
         margin: const EdgeInsets.all(20),
         child: Form(
           key: controller.receiveFormKey,
@@ -112,7 +113,7 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
                 height: 20,
               ),
               Container(
-                height: Get.height / 2,
+                height: Get.height / 2.3,
                 // color: Colors.black,
                 child: Obx(() => ListView.builder(
                     itemCount: controller.productListModel.length,
@@ -269,9 +270,11 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
                 height: 20,
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (controller.products.isNotEmpty &&
-                      controller.vendors.isNotEmpty) controller.onSumit();
+                      controller.vendors.isNotEmpty) {
+                    await controller.onSumit().then((v) => Get.back());
+                  }
                 },
                 style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
                     backgroundColor:

@@ -28,25 +28,29 @@ class GridWidget extends StatelessWidget {
         itemCount: product.length,
         itemBuilder: (_, i) {
           var grid = product[i];
-          return Obx(() => CardWidget(
-                picture: grid.picture,
-                title: grid.name.toString(),
-                onTap: () {
-                  if (int.tryParse(product[i].quantity!)! >= 1) {
-                    product[i].count = product[i].count! + 1;
-                    product[i].quantity =
-                        (int.tryParse(product[i].quantity.toString())! - 1)
-                            .toString();
-                    print(product[i].quantity);
-                    orders.add(product[i]);
-                    total();
-                  }
-                },
-                quantity: product[i].quantity!,
-                volume: product[i].weight.toString(),
-                price: product[i].price.toString(),
-                model: product[i],
-              ));
+          return Obx(() =>
+                  // int.tryParse(product[i].quantity!)! >= 1?
+                  CardWidget(
+                    picture: grid.picture,
+                    title: grid.name.toString(),
+                    onTap: () {
+                      if (int.tryParse(product[i].quantity!)! >= 1) {
+                        product[i].count = product[i].count! + 1;
+                        product[i].quantity =
+                            (int.tryParse(product[i].quantity.toString())! - 1)
+                                .toString();
+                        print(product[i].quantity);
+                        orders.add(product[i]);
+                        total();
+                      }
+                    },
+                    quantity: product[i].quantity!,
+                    volume: product[i].weight.toString(),
+                    price: product[i].price.toString(),
+                    model: product[i],
+                  )
+              // : const SizedBox()
+              );
         });
   }
 }

@@ -6,6 +6,7 @@ class SellModel {
   String? price;
   String? productQuantity;
   String? receivingDate;
+  String? invoiceId;
 
   SellModel({
     this.id,
@@ -15,16 +16,18 @@ class SellModel {
     this.price,
     this.receivingDate,
     this.productQuantity,
+    this.invoiceId,
   });
 
   factory SellModel.fromMap(Map<String, dynamic> json) => SellModel(
-        id: json["id"] ?? 0,
+        id: json["id"],
         productName: json["productName"] ?? "",
         productId: json["productId"] ?? "",
         productWeight: json["productWeight"] ?? "",
         price: json["price"] ?? "",
         productQuantity: json["productQuantity"].toString() ?? "",
         receivingDate: json["receivingDate"] ?? "",
+        invoiceId: json["invoiceId"] ?? "",
       );
 
   Map<String, dynamic> toMap() => {
@@ -35,5 +38,6 @@ class SellModel {
         "price": price,
         "productQuantity": productQuantity,
         "receivingDate": receivingDate,
+        "invoiceId": invoiceId,
       };
 }

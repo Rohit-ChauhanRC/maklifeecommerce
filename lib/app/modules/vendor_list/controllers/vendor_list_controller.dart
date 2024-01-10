@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:maklifeecommerce/app/data/database/vendor_db.dart';
 import 'package:maklifeecommerce/app/data/models/vendor_model.dart';
+import 'package:maklifeecommerce/app/modules/home/controllers/home_controller.dart';
 
 class VendorListController extends GetxController {
   //
-  final VendorDB vendorDB = VendorDB();
+  // final VendorDB vendorDB = VendorDB();
+  final HomeController homeController = Get.find();
 
   final RxList<VendorModel> _vendors = RxList<VendorModel>();
   List<VendorModel> get vendors => _vendors;
@@ -29,6 +31,6 @@ class VendorListController extends GetxController {
   // void increment() => count.value++;
 
   Future<void> fetchAll() async {
-    vendors.assignAll(await vendorDB.fetchAll());
+    vendors.assignAll(await homeController.vendorDB.fetchAll());
   }
 }

@@ -19,6 +19,8 @@ abstract class Routes {
   static const EDIT_PRODUCT_ITEM = _Paths.EDIT_PRODUCT_ITEM;
   static const VENDOR_LIST = _Paths.VENDOR_LIST;
   static const EDIT_VENDOR = _Paths.EDIT_VENDOR;
+  static const CUTOMER_BILLING_LIST = _Paths.CUTOMER_BILLING_LIST;
+  static const CUTOMER_BILLING_DETILS = _Paths.CUTOMER_BILLING_DETILS;
 }
 
 abstract class _Paths {
@@ -39,4 +41,6 @@ abstract class _Paths {
   static const EDIT_PRODUCT_ITEM = '/edit-product-item';
   static const VENDOR_LIST = '/vendor-list';
   static const EDIT_VENDOR = '/edit-vendor';
+  static const CUTOMER_BILLING_LIST = '/cutomer-billing-list';
+  static const CUTOMER_BILLING_DETILS = '/cutomer-billing-detils';
 }

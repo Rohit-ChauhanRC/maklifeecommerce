@@ -1,14 +1,18 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
 import 'package:maklifeecommerce/app/data/database/sell_db.dart';
+import 'package:maklifeecommerce/app/data/database/vendor_db.dart';
 import 'package:maklifeecommerce/app/data/models/product_model.dart';
 
 class HomeController extends GetxController {
   //
+  final box = GetStorage();
 
   final ProductDB productDB = ProductDB();
   final SellDB sellDB = SellDB();
+  final VendorDB vendorDB = VendorDB();
 
   final RxList<ProductModel> _products = RxList<ProductModel>();
   List<ProductModel> get products => _products;
@@ -26,13 +30,19 @@ class HomeController extends GetxController {
   double get totalAmount => _totalAmount.value;
   set totalAmount(double str) => _totalAmount.value = str;
 
+  final RxInt _invoiceNo = RxInt(0);
+  int get invoiceNo => _invoiceNo.value;
+  set invoiceNo(int i) => _invoiceNo.value = i;
+
   @override
   void onInit() async {
     super.onInit();
+
     await fetchProduct();
     await sellDB.fetchAll().then((value) {
       value.map((e) => print(e.productName!));
     });
+    fetchInvoiceNo();
   }
 
   @override
@@ -43,6 +53,14 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  fetchInvoiceNo() {
+    if (box.read("invoiceNo") != null && box.read("invoiceNo") != "") {
+      invoiceNo = box.read("invoiceNo");
+    } else {
+      box.write("invoiceNo", 00001);
+    }
   }
 
   Future<void> fetchProduct() async {
@@ -69,27 +87,31 @@ class HomeController extends GetxController {
     return totalAmount;
   }
 
-  onSave() async {
-    orders.forEach((e) async {
+  Future<void> onSave() async {
+    for (var i = 0; i < orders.length; i++) {
       await sellDB.create(
-        productName: e.name!,
-        productWeight: e.weight!,
-        price: e.price!,
-        productId: e.id.toString(),
-        productQuantity: e.count.toString(),
+        invoiceId: "I${box.read("invoiceNo")}",
+        productName: orders[i].name!,
+        productWeight: orders[i].weight!,
+        price: orders[i].price!,
+        productId: orders[i].id.toString(),
+        productQuantity: orders[i].count.toString(),
         receivingDate: DateTime.now().toIso8601String(),
       );
-      orders.assignAll([]);
 
-      products.map((el) async {
-        if (el.id == e.id) {
+      products.map((e) async {
+        if (e.id! == orders[i].id!) {
           await productDB.update(
-              id: e.id!,
+              id: orders[i].id!,
               quantity:
-                  "${int.tryParse(el.quantity!)! - int.tryParse(e.quantity!)!}");
+                  "${int.tryParse(orders[i].quantity!)! - int.tryParse(orders[i].quantity!)!}");
         }
       });
-    });
+    }
+    invoiceNo += 1;
+    box.write("invoiceNo", invoiceNo);
     await fetchProduct();
+    orders.assignAll([]);
+    totalAmount = 0.0;
   }
 }
