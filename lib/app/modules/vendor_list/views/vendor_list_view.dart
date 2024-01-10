@@ -21,7 +21,7 @@ class VendorListView extends GetView<VendorListController> {
         margin: const EdgeInsets.all(20),
         height: Get.height,
         width: Get.width,
-        child: Obx(() => controller.vendors.length > 1
+        child: Obx(() => controller.vendors.isNotEmpty
             ? ListView.builder(
                 itemCount: controller.vendors.length,
                 itemBuilder: (ctx, i) {

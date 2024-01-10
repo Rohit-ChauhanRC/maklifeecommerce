@@ -21,6 +21,8 @@ class CutomerBillingListView extends GetView<CutomerBillingListController> {
         margin: const EdgeInsets.all(20),
         child: Obx(() => controller.receiveList.isNotEmpty
             ? GridView.builder(
+                shrinkWrap: true,
+                reverse: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisExtent: 150,

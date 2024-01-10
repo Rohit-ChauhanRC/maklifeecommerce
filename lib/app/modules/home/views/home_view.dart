@@ -37,14 +37,17 @@ class HomeView extends GetView<HomeController> {
       drawer: AppDrawer(),
       body: Column(children: [
         Obx(() => controller.products.isNotEmpty
-            ? SizedBox(
-                height: Get.height / 2.01,
-                child: GridWidget(
-                  product: controller.products,
-                  orders: controller.orders,
-                  total: controller.totalAmountCal,
-                ),
-              )
+            ? GetBuilder<HomeController>(builder: (context) {
+                return SizedBox(
+                  height: Get.height / 2.01,
+                  child: GridWidget(
+                    product: controller.products,
+                    orders: controller.orders,
+                    total: controller.totalAmountCal,
+                    handleProductQuantity: controller.handleProductQuantity,
+                  ),
+                );
+              })
             : SizedBox(
                 height: Get.height / 2.01,
                 child: Center(
@@ -133,27 +136,7 @@ class HomeView extends GetView<HomeController> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                      if (controller.orders
-                                                              .toSet()
-                                                              .toList()[i]
-                                                              .count! >=
-                                                          1) {
-                                                        controller.orders
-                                                            .toSet()
-                                                            .toList()[i]
-                                                            .count = controller
-                                                                .orders
-                                                                .toSet()
-                                                                .toList()[i]
-                                                                .count! -
-                                                            1;
-                                                        controller.orders.add(
-                                                            controller.orders
-                                                                .toSet()
-                                                                .toList()[i]);
-                                                        controller
-                                                            .totalAmountCal();
-                                                      }
+                                                      controller.itemSub(i);
                                                     },
                                                     child: Icon(
                                                       Icons
@@ -181,39 +164,7 @@ class HomeView extends GetView<HomeController> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {
-                                                      if (controller.orders
-                                                                  .toSet()
-                                                                  .toList()[i]
-                                                                  .count! >=
-                                                              1 &&
-                                                          controller.orders
-                                                                  .toSet()
-                                                                  .toList()[i]
-                                                                  .count! <=
-                                                              int.tryParse(
-                                                                  controller
-                                                                      .orders
-                                                                      .toSet()
-                                                                      .toList()[
-                                                                          i]
-                                                                      .quantity
-                                                                      .toString())!) {
-                                                        controller.orders
-                                                            .toSet()
-                                                            .toList()[i]
-                                                            .count = controller
-                                                                .orders
-                                                                .toSet()
-                                                                .toList()[i]
-                                                                .count! +
-                                                            1;
-                                                        controller.orders.add(
-                                                            controller.orders
-                                                                .toSet()
-                                                                .toList()[i]);
-                                                        controller
-                                                            .totalAmountCal();
-                                                      }
+                                                      controller.itemAdd(i);
                                                     },
                                                     child: Icon(
                                                       Icons.add_circle_outlined,

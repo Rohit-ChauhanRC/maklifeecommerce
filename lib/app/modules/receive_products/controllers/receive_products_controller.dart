@@ -88,6 +88,19 @@ class ReceiveProductsController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    _id.close();
+    _inputProduct.close();
+    _inputVendor.close();
+    _invoiceId.close();
+    _pmodel.close();
+    _productListModel.close();
+    _products.close();
+    _quantity.close();
+    _receivingDate.close();
+    _totalAmount.close();
+    _vendorId.close();
+    _vendorModel.close();
+    _vendors.close();
   }
 
   void setSelected(String value) {
@@ -137,22 +150,28 @@ class ReceiveProductsController extends GetxController {
     // if (!receiveFormKey!.currentState!.validate()) {
     //   return null;
     // }
-    productListModel.forEach((c) async {
+    for (var i = 0; i < productListModel.length; i++) {
       await receivingDB.create(
-          vendorName: c.vendorName.toString(),
-          totalAmount: c.totalAmount.toString(),
-          productName: c.productName.toString(),
-          invoiceId: c.invoiceId,
-          productId: c.productId,
-          productQuantity: c.productQuantity,
-          receivingDate: c.receivingDate,
-          vendorId: c.vendorId);
+          vendorName: productListModel[i].vendorName.toString(),
+          totalAmount: productListModel[i].totalAmount.toString(),
+          productName: productListModel[i].productName.toString(),
+          invoiceId: productListModel[i].invoiceId,
+          productId: productListModel[i].productId,
+          productQuantity: productListModel[i].productQuantity,
+          receivingDate: productListModel[i].receivingDate,
+          vendorId: productListModel[i].vendorId);
 
-      await homeController.productDB
-          .update(id: int.tryParse(c.productId!)!, quantity: c.productQuantity);
-    });
-    homeController.products
-        .assignAll(await homeController.productDB.fetchAll());
+      final quantity = await homeController.productDB.fetchById(
+        int.tryParse(productListModel[i].productId!)!,
+      );
+      await homeController.productDB.update(
+          id: int.tryParse(productListModel[i].productId!)!,
+          quantity: (int.tryParse(quantity.quantity!)! +
+                  int.tryParse(productListModel[i].productQuantity!)!)
+              .toString());
+    }
+
+    await homeController.productDB.fetchAll().then((value) => Get.back());
 
     // print(receivingDate);
   }

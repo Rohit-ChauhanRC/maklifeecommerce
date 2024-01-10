@@ -43,23 +43,30 @@ class HomeController extends GetxController {
       value.map((e) => print(e.productName!));
     });
     fetchInvoiceNo();
+    print("invoice NNO. :${box.read("invoiceNo")}");
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
+    await fetchProduct();
   }
 
   @override
   void onClose() {
     super.onClose();
+    _orders.close();
+    _invoiceNo.close();
+    _personPic.close();
+    _totalAmount.close();
+    _products.close();
   }
 
   fetchInvoiceNo() {
     if (box.read("invoiceNo") != null && box.read("invoiceNo") != "") {
       invoiceNo = box.read("invoiceNo");
     } else {
-      box.write("invoiceNo", 00001);
+      box.write("invoiceNo", 10001);
     }
   }
 
@@ -88,30 +95,94 @@ class HomeController extends GetxController {
   }
 
   Future<void> onSave() async {
-    for (var i = 0; i < orders.length; i++) {
+    for (var i = 0; i < orders.toSet().toList().length; i++) {
       await sellDB.create(
         invoiceId: "I${box.read("invoiceNo")}",
         productName: orders[i].name!,
         productWeight: orders[i].weight!,
-        price: orders[i].price!,
+        price: (int.tryParse(orders[i].price!)! * orders[i].count!).toString(),
         productId: orders[i].id.toString(),
         productQuantity: orders[i].count.toString(),
         receivingDate: DateTime.now().toIso8601String(),
       );
+      final index = products
+          .indexWhere((element) => element.id == orders.toSet().toList()[i].id);
 
-      products.map((e) async {
-        if (e.id! == orders[i].id!) {
-          await productDB.update(
-              id: orders[i].id!,
-              quantity:
-                  "${int.tryParse(orders[i].quantity!)! - int.tryParse(orders[i].quantity!)!}");
-        }
-      });
+      await productDB.update(
+          id: products[index].id!,
+          quantity: "${int.tryParse(products[index].quantity!)!}");
+
+      // products.map((e) async {
+      //   if (e.id! == orders[i].id!) {
+      //     e.quantity =
+      //         "${int.tryParse(orders[i].quantity!)! - int.tryParse(orders[i].quantity!)!}";
+      //    }
+      // });
     }
-    invoiceNo += 1;
-    box.write("invoiceNo", invoiceNo);
+    // invoiceNo += 1;
+    box.write("invoiceNo", box.read("invoiceNo") + 1);
     await fetchProduct();
     orders.assignAll([]);
     totalAmount = 0.0;
+  }
+
+  handleProductQuantity(int i) {
+    if (int.tryParse(products[i].quantity!)! >= 1) {
+      products[i].count = products[i].count! + 1;
+      products[i].quantity =
+          (int.tryParse(products[i].quantity.toString())! - 1).toString();
+
+      orders.add(products[i]);
+      totalAmountCal();
+      update();
+    }
+  }
+
+  handleAddProductQuantity(int i) {
+    if (int.tryParse(products[i].quantity!)! >= 1) {
+      products[i].count = products[i].count! + 1;
+      products[i].quantity =
+          (int.tryParse(products[i].quantity.toString())! + 1).toString();
+
+      orders.add(products[i]);
+      totalAmountCal();
+      update();
+    }
+  }
+
+  itemAdd(int i) {
+    if (orders.toSet().toList()[i].count! >= 1 &&
+        orders.toSet().toList()[i].count! <=
+            int.tryParse(orders.toSet().toList()[i].quantity.toString())!) {
+      orders.toSet().toList()[i].count = orders.toSet().toList()[i].count! + 1;
+      orders.add(orders.toSet().toList()[i]);
+      final index = products
+          .indexWhere((element) => element.id == orders.toSet().toList()[i].id);
+      if (int.tryParse(products[index].quantity!)! >= 1) {
+        products[index].quantity =
+            (int.tryParse(products[index].quantity.toString())! - 1).toString();
+
+        totalAmountCal();
+        update();
+      }
+    }
+  }
+
+  itemSub(int i) {
+    if (orders.toSet().toList()[i].count! >= 1) {
+      orders.toSet().toList()[i].count = orders.toSet().toList()[i].count! - 1;
+      orders.add(orders.toSet().toList()[i]);
+      totalAmountCal();
+      final index = products
+          .indexWhere((element) => element.id == orders.toSet().toList()[i].id);
+
+      if (int.tryParse(products[index].quantity!)! >= 1) {
+        products[index].quantity =
+            (int.tryParse(products[index].quantity.toString())! + 1).toString();
+
+        totalAmountCal();
+        update();
+      }
+    }
   }
 }

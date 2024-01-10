@@ -273,7 +273,7 @@ class ReceiveProductsView extends GetView<ReceiveProductsController> {
                 onPressed: () async {
                   if (controller.products.isNotEmpty &&
                       controller.vendors.isNotEmpty) {
-                    await controller.onSumit().then((v) => Get.back());
+                    await controller.onSumit();
                   }
                 },
                 style: Theme.of(context).elevatedButtonTheme.style!.copyWith(

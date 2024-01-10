@@ -114,13 +114,13 @@ class CutomerBillingDetilsView extends GetView<CutomerBillingDetilsController> {
                       color: AppColors.reddishColor,
                     ),
                   ),
-                  Text(
-                    controller.receive.price ?? "",
-                    style: TextStyle(
-                      fontSize: AppDimens.font22,
-                      color: AppColors.brownColor,
-                    ),
-                  ),
+                  Obx(() => Text(
+                        "₹${controller.totalAmounnt}/-" ?? "0.0",
+                        style: TextStyle(
+                          fontSize: AppDimens.font22,
+                          color: AppColors.brownColor,
+                        ),
+                      )),
                 ],
               ),
               const SizedBox(
@@ -202,6 +202,30 @@ class CutomerBillingDetilsView extends GetView<CutomerBillingDetilsController> {
                                     ),
                                     Text(
                                       data.productQuantity ?? "0",
+                                      style: TextStyle(
+                                        fontSize: AppDimens.font18,
+                                        color: AppColors.brownColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Price:",
+                                      style: TextStyle(
+                                        fontSize: AppDimens.font18,
+                                        color: AppColors.reddishColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      "₹${data.price}/-" ?? "0",
                                       style: TextStyle(
                                         fontSize: AppDimens.font18,
                                         color: AppColors.brownColor,
