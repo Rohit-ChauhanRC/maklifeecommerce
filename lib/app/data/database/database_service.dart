@@ -1,4 +1,5 @@
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
+import 'package:maklifeecommerce/app/data/database/profile_db.dart';
 import 'package:maklifeecommerce/app/data/database/vendor_db.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -41,5 +42,6 @@ class DataBaseService {
     await VendorDB().createTable(database);
     await ReceivingDB().createTable(database);
     await SellDB().createTable(database);
+    await ProfileDB().createTable(database);
   }
 }

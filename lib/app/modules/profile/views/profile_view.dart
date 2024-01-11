@@ -29,7 +29,9 @@ class ProfileView extends GetView<ProfileController> {
             ),
             Obx(() => UploadImageWidget(
                   imageFile: controller.homeController.personPic,
-                  onTap: controller.getImage1,
+                  onTap: controller.homeController.getImage1,
+                  bytes: controller.homeController.personPicM,
+                  imageDb: controller.homeController.memoryImg,
                 )),
             const SizedBox(
               height: 20,

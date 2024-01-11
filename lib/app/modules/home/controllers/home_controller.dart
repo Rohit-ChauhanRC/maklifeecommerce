@@ -1,10 +1,14 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maklifeecommerce/app/data/database/product_db.dart';
+import 'package:maklifeecommerce/app/data/database/profile_db.dart';
 import 'package:maklifeecommerce/app/data/database/sell_db.dart';
 import 'package:maklifeecommerce/app/data/database/vendor_db.dart';
 import 'package:maklifeecommerce/app/data/models/product_model.dart';
+import 'package:maklifeecommerce/app/data/models/profile_model.dart';
+import 'package:maklifeecommerce/app/utils/utils.dart';
 
 class HomeController extends GetxController {
   //
@@ -13,6 +17,7 @@ class HomeController extends GetxController {
   final ProductDB productDB = ProductDB();
   final SellDB sellDB = SellDB();
   final VendorDB vendorDB = VendorDB();
+  final ProfileDB profileDB = ProfileDB();
 
   final RxList<ProductModel> _products = RxList<ProductModel>();
   List<ProductModel> get products => _products;
@@ -26,6 +31,14 @@ class HomeController extends GetxController {
   XFile get personPic => _personPic.value;
   set personPic(XFile v) => _personPic.value = v;
 
+  final Rx<Uint8List> _personPicM = Rx<Uint8List>(Uint8List(0));
+  Uint8List get personPicM => _personPicM.value;
+  set personPicM(Uint8List pic) => _personPicM.value = pic;
+
+  final RxBool _memoryImg = RxBool(true);
+  bool get memoryImg => _memoryImg.value;
+  set memoryImg(bool b) => _memoryImg.value = b;
+
   final RxDouble _totalAmount = 0.0.obs;
   double get totalAmount => _totalAmount.value;
   set totalAmount(double str) => _totalAmount.value = str;
@@ -34,16 +47,18 @@ class HomeController extends GetxController {
   int get invoiceNo => _invoiceNo.value;
   set invoiceNo(int i) => _invoiceNo.value = i;
 
+  final Rx<ProfileModel> _profile = Rx(ProfileModel());
+  ProfileModel get profile => _profile.value;
+  set profile(ProfileModel v) => _profile.value = v;
+
   @override
   void onInit() async {
     super.onInit();
 
     await fetchProduct();
-    await sellDB.fetchAll().then((value) {
-      value.map((e) => print(e.productName!));
-    });
+    await sellDB.fetchAll();
     fetchInvoiceNo();
-    print("invoice NNO. :${box.read("invoiceNo")}");
+    // await fetchProfile();
   }
 
   @override
@@ -111,15 +126,7 @@ class HomeController extends GetxController {
       await productDB.update(
           id: products[index].id!,
           quantity: "${int.tryParse(products[index].quantity!)!}");
-
-      // products.map((e) async {
-      //   if (e.id! == orders[i].id!) {
-      //     e.quantity =
-      //         "${int.tryParse(orders[i].quantity!)! - int.tryParse(orders[i].quantity!)!}";
-      //    }
-      // });
     }
-    // invoiceNo += 1;
     box.write("invoiceNo", box.read("invoiceNo") + 1);
     await fetchProduct();
     orders.assignAll([]);
@@ -184,5 +191,24 @@ class HomeController extends GetxController {
         update();
       }
     }
+  }
+
+  void getImage1() {
+    Utils.showImagePicker(onGetImage: (image) {
+      if (image != null) {
+        personPic = image;
+        memoryImg = false;
+      }
+    });
+  }
+
+  Future<void> fetchProfile() async {
+    await profileDB.fetchAll().then((v) {
+      if (v.isNotEmpty) {
+        profile = v[1];
+        personPicM = v[1].picture!;
+        memoryImg = true;
+      }
+    });
   }
 }
