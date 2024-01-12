@@ -43,10 +43,18 @@ class ProductDB {
 
   Future<List<ProductModel>> fetchAll() async {
     final database = await DataBaseService().database;
-    print("object");
     final products = await database.rawQuery('''
         SELECT * from $tableName 
       ''');
+
+    return products.map((e) => ProductModel.fromMap(e)).toList();
+  }
+
+  Future<List<ProductModel>> fetchByName(String name) async {
+    final database = await DataBaseService().database;
+    final products = await database.rawQuery('''
+        SELECT * from $tableName WHERE name = ?
+      ''', [name]);
 
     return products.map((e) => ProductModel.fromMap(e)).toList();
   }

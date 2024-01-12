@@ -81,7 +81,7 @@ class AddProductController extends GetxController {
   Future<void> createproductTable() async {
     await productDB
         .create(
-      name: name,
+      name: name.toUpperCase(),
       weight: weight,
       price: price,
       quantity: quantity,

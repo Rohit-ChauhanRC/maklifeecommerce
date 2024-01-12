@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -9,6 +10,7 @@ import 'package:maklifeecommerce/app/data/database/vendor_db.dart';
 import 'package:maklifeecommerce/app/data/models/product_model.dart';
 import 'package:maklifeecommerce/app/data/models/profile_model.dart';
 import 'package:maklifeecommerce/app/utils/utils.dart';
+import 'package:flutter/material.dart';
 
 class HomeController extends GetxController {
   //
@@ -22,6 +24,14 @@ class HomeController extends GetxController {
   final RxList<ProductModel> _products = RxList<ProductModel>();
   List<ProductModel> get products => _products;
   set products(List<ProductModel> lt) => _products.assignAll(lt);
+
+  final RxList<ProductModel> _productSearch = RxList<ProductModel>();
+  List<ProductModel> get productSearch => _productSearch;
+  set productSearch(List<ProductModel> lt) => _productSearch.assignAll(lt);
+
+  final RxBool _searchP = RxBool(true);
+  bool get searchP => _searchP.value;
+  set searchP(bool b) => _searchP.value = b;
 
   final RxList<ProductModel> _orders = RxList<ProductModel>();
   List<ProductModel> get orders => _orders;
@@ -50,6 +60,11 @@ class HomeController extends GetxController {
   final Rx<ProfileModel> _profile = Rx(ProfileModel());
   ProfileModel get profile => _profile.value;
   set profile(ProfileModel v) => _profile.value = v;
+
+  final RxString _search = "".obs;
+  String get search => _search.value;
+  set search(String str) => _search.value = str;
+  final TextEditingController? textController = TextEditingController();
 
   @override
   void onInit() async {
@@ -87,6 +102,21 @@ class HomeController extends GetxController {
 
   Future<void> fetchProduct() async {
     products.assignAll(await productDB.fetchAll());
+  }
+
+  Future<void> searchProduct(String name) async {
+    for (var i = 0; i < products.length; i++) {
+      searchP = true;
+      if (products[i].name!.toLowerCase() == name) {
+        print(products[i].name);
+        products.assignAll([products[i]]);
+      }
+      // else {
+      //   productSearch.assignAll([]);
+      // }
+    }
+
+    print("ONH".toLowerCase().capitalize);
   }
 
   removeItem(i) {

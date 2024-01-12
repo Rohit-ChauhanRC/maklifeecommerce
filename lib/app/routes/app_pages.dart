@@ -22,6 +22,8 @@ import '../modules/manage_products/bindings/manage_products_binding.dart';
 import '../modules/manage_products/views/manage_products_view.dart';
 import '../modules/order_details/bindings/order_details_binding.dart';
 import '../modules/order_details/views/order_details_view.dart';
+import '../modules/otp/bindings/otp_binding.dart';
+import '../modules/otp/views/otp_view.dart';
 import '../modules/product_list/bindings/product_list_binding.dart';
 import '../modules/product_list/views/product_list_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
@@ -42,7 +44,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -134,6 +136,11 @@ class AppPages {
       name: _Paths.CUTOMER_BILLING_DETILS,
       page: () => const CutomerBillingDetilsView(),
       binding: CutomerBillingDetilsBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP,
+      page: () => const OtpView(),
+      binding: OtpBinding(),
     ),
   ];
 }

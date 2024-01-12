@@ -7,6 +7,7 @@ import 'package:maklifeecommerce/app/utils/app_colors/app_colors.dart';
 import 'package:maklifeecommerce/app/utils/app_dimens/app_dimens.dart';
 import 'package:maklifeecommerce/app/utils/widgets/app_drawer.dart';
 import 'package:maklifeecommerce/app/utils/widgets/grid_widget.dart';
+import 'package:maklifeecommerce/app/utils/widgets/text_form_widget.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -35,7 +36,43 @@ class HomeView extends GetView<HomeController> {
         ],
       ),
       drawer: AppDrawer(),
-      body: Column(children: [
+      body: ListView(shrinkWrap: true, children: [
+        Container(
+          margin: const EdgeInsets.only(left: 10, right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: Get.width / 2,
+                child: TextFormWidget(
+                  textController: controller.textController,
+                  label: "Search...",
+                  onChanged: (v) =>
+                      controller.textController!.text = v.toString(),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    if (controller.textController!.text.toString().isNotEmpty) {
+                      controller.searchProduct(controller.textController!.text);
+                    }
+                  },
+                  child: const Text("Search")),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    controller.textController!.clear();
+                    await controller.fetchProduct();
+                  },
+                  child: const Text("All"))
+            ],
+          ),
+        ),
         Obx(() => controller.products.isNotEmpty
             ? GetBuilder<HomeController>(builder: (context) {
                 return SizedBox(
@@ -259,7 +296,7 @@ class HomeView extends GetView<HomeController> {
           children: [
             ElevatedButton(
               onPressed: () async {
-                await controller.onSave();
+                if (controller.orders.isNotEmpty) await controller.onSave();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.brownColor,

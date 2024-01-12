@@ -21,6 +21,7 @@ abstract class Routes {
   static const EDIT_VENDOR = _Paths.EDIT_VENDOR;
   static const CUTOMER_BILLING_LIST = _Paths.CUTOMER_BILLING_LIST;
   static const CUTOMER_BILLING_DETILS = _Paths.CUTOMER_BILLING_DETILS;
+  static const OTP = _Paths.OTP;
 }
 
 abstract class _Paths {
@@ -43,4 +44,5 @@ abstract class _Paths {
   static const EDIT_VENDOR = '/edit-vendor';
   static const CUTOMER_BILLING_LIST = '/cutomer-billing-list';
   static const CUTOMER_BILLING_DETILS = '/cutomer-billing-detils';
+  static const OTP = '/otp';
 }

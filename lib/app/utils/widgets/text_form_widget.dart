@@ -10,6 +10,7 @@ class TextFormWidget extends StatelessWidget {
     this.readOnly = false,
     this.initialValue,
     this.validator,
+    this.textController,
   });
 
   final void Function(String)? onChanged;
@@ -18,10 +19,12 @@ class TextFormWidget extends StatelessWidget {
   final bool readOnly;
   final String? initialValue;
   final String? Function(String?)? validator;
+  final TextEditingController? textController;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: textController,
       validator: validator,
       initialValue: initialValue,
       autovalidateMode: AutovalidateMode.always,

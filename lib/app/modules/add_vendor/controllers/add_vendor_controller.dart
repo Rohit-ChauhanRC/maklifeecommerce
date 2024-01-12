@@ -51,7 +51,7 @@ class AddVendorController extends GetxController {
   Future<void> createVendorTable() async {
     await homeController.vendorDB
         .create(
-      name: name,
+      name: name.toUpperCase(),
       address: address,
       gst: gst,
       mobileNo: int.tryParse(mobileNumber),
