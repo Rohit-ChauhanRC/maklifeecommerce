@@ -66,19 +66,23 @@ class HomeView extends GetView<HomeController> {
               ),
               ElevatedButton(
                   onPressed: () async {
-                    controller.textController!.clear();
-                    await controller.fetchProduct();
+                    // controller.textController!.clear();
+                    // controller.searchP = false;
+                    await controller.all();
                   },
                   child: const Text("All"))
             ],
           ),
         ),
-        Obx(() => controller.products.isNotEmpty
+        Obx(() => controller.products.isNotEmpty ||
+                (controller.searchP && controller.productSearch.isNotEmpty)
             ? GetBuilder<HomeController>(builder: (context) {
                 return SizedBox(
                   height: Get.height / 2.01,
                   child: GridWidget(
-                    product: controller.products,
+                    product: controller.searchP
+                        ? controller.productSearch.toSet().toList()
+                        : controller.products,
                     orders: controller.orders,
                     total: controller.totalAmountCal,
                     handleProductQuantity: controller.handleProductQuantity,

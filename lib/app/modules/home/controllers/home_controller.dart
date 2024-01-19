@@ -11,6 +11,7 @@ import 'package:maklifeecommerce/app/data/models/product_model.dart';
 import 'package:maklifeecommerce/app/data/models/profile_model.dart';
 import 'package:maklifeecommerce/app/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomeController extends GetxController {
   //
@@ -29,7 +30,7 @@ class HomeController extends GetxController {
   List<ProductModel> get productSearch => _productSearch;
   set productSearch(List<ProductModel> lt) => _productSearch.assignAll(lt);
 
-  final RxBool _searchP = RxBool(true);
+  final RxBool _searchP = RxBool(false);
   bool get searchP => _searchP.value;
   set searchP(bool b) => _searchP.value = b;
 
@@ -69,7 +70,7 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-
+    getDatabasesPath().then((value) => print("db pthj : $value"));
     await fetchProduct();
     await sellDB.fetchAll();
     fetchInvoiceNo();
@@ -105,18 +106,26 @@ class HomeController extends GetxController {
   }
 
   Future<void> searchProduct(String name) async {
+    productSearch.assignAll([]);
+
     for (var i = 0; i < products.length; i++) {
       searchP = true;
-      if (products[i].name!.toLowerCase() == name) {
-        print(products[i].name);
-        products.assignAll([products[i]]);
-      }
-      // else {
-      //   productSearch.assignAll([]);
-      // }
-    }
 
-    print("ONH".toLowerCase().capitalize);
+      if (products[i].name.toString().toLowerCase().contains(name)) {
+        productSearch.add(products[i]);
+
+        update();
+        print(products[i].name);
+      }
+    }
+    FocusScope.of(Get.context!).unfocus();
+  }
+
+  Future<void> all() async {
+    textController!.clear();
+    searchP = false;
+    // productSearch = products;
+    update();
   }
 
   removeItem(i) {

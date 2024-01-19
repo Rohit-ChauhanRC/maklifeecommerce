@@ -64,7 +64,7 @@ class GridWidget extends StatelessWidget {
                   product[i].picture != null
                       ? SizedBox(
                           height: 140,
-                          width: 190,
+                          width: 232,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(20),
