@@ -91,6 +91,9 @@ class HomeController extends GetxController {
     _personPic.close();
     _totalAmount.close();
     _products.close();
+    textController!.clear();
+    productSearch.clear();
+    searchP = false;
   }
 
   fetchInvoiceNo() {

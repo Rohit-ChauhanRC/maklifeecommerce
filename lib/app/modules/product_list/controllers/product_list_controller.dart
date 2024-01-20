@@ -17,7 +17,9 @@ class ProductListController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-
+    homeController.textController!.clear();
+    homeController.productSearch.clear();
+    homeController.searchP = false;
     if (kDebugMode) {
       print("121212");
     }
@@ -33,5 +35,8 @@ class ProductListController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    homeController.textController!.clear();
+    homeController.productSearch.clear();
+    homeController.searchP = false;
   }
 }
