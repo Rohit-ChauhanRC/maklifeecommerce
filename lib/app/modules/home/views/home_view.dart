@@ -144,7 +144,7 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(
                       height: Get.height / 5,
                       child: Obx(() => controller.orders.isNotEmpty
-                          ? ListView.builder(
+                          ? ListView.separated(
                               itemCount:
                                   controller.orders.toSet().toList().length,
                               itemBuilder: (ctx, i) {
@@ -244,6 +244,10 @@ class HomeView extends GetView<HomeController> {
                                       )
                                     : const SizedBox());
                               },
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return Divider();
+                              },
                             )
                           : const SizedBox()),
                     ),
@@ -271,7 +275,7 @@ class HomeView extends GetView<HomeController> {
                           ),
                           Obx(() => controller.totalAmount != 0.0
                               ? Text(
-                                  controller.totalAmount.toString(),
+                                  "₹${controller.totalAmount.toString()}",
                                   style: TextStyle(
                                     fontSize: AppDimens.font24,
                                     color: AppColors.brownColor,
@@ -279,7 +283,7 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                 )
                               : Text(
-                                  "0.0",
+                                  "₹0.0",
                                   style: TextStyle(
                                     fontSize: AppDimens.font24,
                                     color: AppColors.brownColor,
