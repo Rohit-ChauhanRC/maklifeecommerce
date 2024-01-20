@@ -246,7 +246,7 @@ class HomeView extends GetView<HomeController> {
                               },
                               separatorBuilder:
                                   (BuildContext context, int index) {
-                                return Divider();
+                                return const Divider();
                               },
                             )
                           : const SizedBox()),

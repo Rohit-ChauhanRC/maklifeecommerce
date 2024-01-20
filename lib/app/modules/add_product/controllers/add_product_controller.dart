@@ -41,6 +41,26 @@ class AddProductController extends GetxController {
   XFile get personPic => _personPic.value;
   set personPic(XFile v) => _personPic.value = v;
 
+  final RxString _gst = ''.obs;
+  String get gst => _gst.value;
+  set gst(String str) => _gst.value = str;
+
+  final RxString _discount = '0.0'.obs;
+  String get discount => _discount.value;
+  set discount(String str) => _discount.value = str;
+
+  final RxString _hsnCode = ''.obs;
+  String get hsnCode => _hsnCode.value;
+  set hsnCode(String str) => _hsnCode.value = str;
+
+  // final RxBool _active = false.obs;
+  // bool get active => _active.value;
+  // set active(bool b) => _active.value = b;
+
+  final RxInt _check = 0.obs;
+  int get check => _check.value;
+  set check(int i) => _check.value = i;
+
   @override
   void onInit() {
     super.onInit();
@@ -85,6 +105,10 @@ class AddProductController extends GetxController {
       weight: weight,
       price: price,
       quantity: quantity,
+      active: check,
+      gst: gst,
+      discount: discount,
+      hsnCode: hsnCode,
       picture: File(personPic.path.toString()).readAsBytesSync(),
     )
         .then((value) async {

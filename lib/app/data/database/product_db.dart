@@ -18,6 +18,10 @@ class ProductDB {
     "description" TEXT,
     "picture" BLOB,
     "count" INTEGER,
+    "active" INTEGER,
+    "gst" TEXT,
+    "hsnCode" TEXT,
+    "discount" TEXT,
     PRIMARY KEY("id" AUTOINCREMENT)
   );
 """);
@@ -31,13 +35,29 @@ class ProductDB {
     String? description,
     Uint8List? picture,
     int? count,
+    int? active,
+    String? gst,
+    String? discount,
+    String? hsnCode,
   }) async {
     final database = await DataBaseService().database;
     return await database.rawInsert(
       '''
-        INSERT INTO $tableName (name,weight,price,quantity,description, picture,count) VALUES (?,?,?,?,?,?,?)
+        INSERT INTO $tableName (name,weight,price,quantity,description, picture,count,active,gst,discount,hsnCode) VALUES (?,?,?,?,?,?,?,?,?,?,?)
       ''',
-      [name, weight, price, quantity, description, picture, count],
+      [
+        name,
+        weight,
+        price,
+        quantity,
+        description,
+        picture,
+        count,
+        active,
+        gst,
+        discount,
+        hsnCode
+      ],
     );
   }
 
@@ -77,6 +97,10 @@ class ProductDB {
     String? description,
     Uint8List? picture,
     int? count,
+    int? active,
+    String? gst,
+    String? discount,
+    String? hsnCode,
   }) async {
     final database = await DataBaseService().database;
     return await database.update(
@@ -89,6 +113,10 @@ class ProductDB {
         if (description != null) 'description': description,
         if (picture != null) 'picture': picture,
         if (count != null) 'count': count,
+        if (active != null) 'active': active,
+        if (gst != null) 'gst': gst,
+        if (discount != null) 'discount': discount,
+        if (hsnCode != null) 'hsnCode': hsnCode,
       },
       where: 'id = ?',
       conflictAlgorithm: ConflictAlgorithm.rollback,

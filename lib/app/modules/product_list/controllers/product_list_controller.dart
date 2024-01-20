@@ -17,9 +17,12 @@ class ProductListController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    homeController.textController!.clear();
-    homeController.productSearch.clear();
-    homeController.searchP = false;
+    // if (homeController.textController!.text.isNotEmpty) {
+    //   homeController.textController!.clear();
+    //   homeController.productSearch.clear();
+    //   homeController.searchP = false;
+    // }
+
     if (kDebugMode) {
       print("121212");
     }
